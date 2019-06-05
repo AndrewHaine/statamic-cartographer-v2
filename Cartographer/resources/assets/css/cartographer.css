@@ -1,0 +1,16 @@
+.cartographer-field__map {
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+  background-color: #f5f9fc;
+  border: #f1f5f9 2px solid;
+}
+
+.cartographer-field__map::after {
+  position: relative;
+  display: inline-block;
+  width: 1px;
+  height: 0;
+  padding-bottom: calc(100% * (9 / 16));
+  content: "";
+}

@@ -1,0 +1,7 @@
+name: Cartographer
+version: 1.0.0
+description: Generate map data with a drag and drop interface
+addon_url: https://github.com/AndrewHaine/statamic-cartographer
+developer: Andrew Haine
+developer_url: https://www.andrewhaine.co.uk
+commercial: true

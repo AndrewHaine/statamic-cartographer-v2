@@ -1,0 +1,19 @@
+{
+  "name": "statamic-cartographer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "author": "Andrew Haine <hello@andrewhaine.co.uk>",
+  "license": "ISC",
+  "devDependencies": {
+    "laravel-mix": "^2.1.11",
+    "vue-html-loader": "^1.2.4",
+    "vue-loader": "^8.7.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.7",
+    "webpack-dev-server": "^3.2.1"
+  }
+}
