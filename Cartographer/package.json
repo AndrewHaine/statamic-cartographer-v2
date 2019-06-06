@@ -15,5 +15,8 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.7",
     "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "uuid": "^3.3.2"
   }
 }
