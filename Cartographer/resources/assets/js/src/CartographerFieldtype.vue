@@ -6,6 +6,12 @@
         <i class="icon icon-plus icon-right"></i>
       </a>
     </div>
+    <div v-if="selectedMarker" class="btn-group my-1 mr-2">
+      <a href="#" class="btn btn-danger" @click.prevent="removeMarker(selectedMarker)">
+        Remove Marker
+        <i class="icon icon-trash icon-right"></i>
+      </a>
+    </div>
     <div class="cartographer-field__map" v-el:map-container></div>
   </section>
 </template>
@@ -24,6 +30,7 @@ export default {
       map: null,
       map_type_id: "roadmap",
       markers: [],
+      markerObjects: [],
       selectedMarker: null
     };
   },
@@ -93,6 +100,49 @@ export default {
           this.handleMarkerDragged(event, id)
         );
       });
+
+      newMarker.addListener("click", () => this.toggleSelectedMarker(id));
+
+      this.markerObjects.push(newMarker);
+    },
+
+    updateMarker(markerId, data, remove = false) {
+      const markers = this.markers;
+      const markerIndex = markers.findIndex(marker => marker.id === markerId);
+
+      if (markerIndex < 0) return false;
+
+      markers[markerIndex] = {
+        ...markers[markerIndex],
+        ...data
+      };
+
+      if (remove) markers.splice(markerIndex, 1);
+
+      this.data = {
+        ...this.data,
+        markers
+      };
+    },
+
+    removeMarker(markerId) {
+      this.selectedMarker = null;
+      this.updateMarker(markerId, null, true);
+      const markerObject = this.markerObjects.filter(
+        markerObject => markerObject.id === markerId
+      )[0];
+      markerObject.setMap(null);
+    },
+
+    toggleSelectedMarker(markerId) {
+      this.selectedMarker = this.selectedMarker === markerId ? null : markerId;
+      this.markerObjects.forEach(markerObject => {
+        if (markerObject.id === this.selectedMarker) {
+          markerObject.setAnimation(google.maps.Animation.BOUNCE);
+        } else {
+          markerObject.setAnimation(null);
+        }
+      });
     },
 
     populateMarkers(markers) {
@@ -118,22 +168,6 @@ export default {
       } else {
         this.updateMarker(markerId, { position: { lat, lng } });
       }
-    },
-
-    updateMarker(markerId, data) {
-      const markers = this.markers;
-      const markerIndex = markers.findIndex(marker => marker.id === markerId);
-
-      if (markerIndex < 0) return false;
-
-      markers[markerIndex] = {
-        ...markers[markerIndex],
-        ...data
-      };
-      this.data = {
-        ...this.data,
-        markers
-      };
     }
   }
 };
