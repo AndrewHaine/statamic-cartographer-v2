@@ -20,7 +20,11 @@ export default {
 
   data() {
     return {
-      map: null
+      center: {},
+      map: null,
+      map_type_id: "roadmap",
+      markers: [],
+      selectedMarker: null
     };
   },
 
@@ -29,15 +33,17 @@ export default {
 
     const mapEl = this.$els.mapContainer;
 
-    const center = {
-      lat: this.data.center.lat || 52.6318051,
-      lng: this.data.center.lng || 1.296734
+    this.center = (this.data && this.data.center) || {
+      lat: 52.6318051,
+      lng: 1.296734
     };
+    this.map_type_id = (this.data && this.data.map_typ_id) || "roadmap";
+    this.markers = (this.data && this.data.markers) || [];
 
     this.map = new google.maps.Map(mapEl, {
-      center: center,
+      center: this.center,
       fullscreenControl: false,
-      mapTypeId: this.data.map_type_id || "roadmap",
+      mapTypeId: this.map_type_id,
       streetViewControl: false,
       zoom: 3
     });
@@ -47,7 +53,7 @@ export default {
     const centerMarker = new google.maps.Marker({
       draggable: true,
       map: this.map,
-      position: center,
+      position: this.center,
       label: "C"
     });
 
@@ -57,25 +63,29 @@ export default {
       );
     });
 
-    this.data.markers = this.data.markers || [];
-    this.data.markers.length && this.populateMarkers(this.data.markers);
+    this.markers.length && this.populateMarkers(this.markers);
   },
 
   methods: {
-    addMarker() {
-      const id = uuid();
+    addMarker(isNew = true, markerData = null) {
+      if (isNew) {
+        markerData = {
+          id: uuid(),
+          label: this.markers.length + 1,
+          position: this.map.getCenter().toJSON()
+        };
+      }
+
+      const { id, label, position } = markerData;
+      if (isNew) this.markers.push({ id, position });
 
       const newMarker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         draggable: true,
         map: this.map,
-        position: this.map.getCenter(),
-        id
-      });
-
-      this.data.markers.push({
+        position: position,
         id,
-        position: this.map.getCenter().toJSON()
+        label: label.toString()
       });
 
       ["drag", "dragend"].forEach(eventType => {
@@ -87,20 +97,7 @@ export default {
 
     populateMarkers(markers) {
       markers.forEach((marker, i) => {
-        i++;
-        const markerObj = new google.maps.Marker({
-          draggable: true,
-          map: this.map,
-          position: marker.position,
-          id: marker.id,
-          label: i.toString()
-        });
-
-        ["drag", "dragend"].forEach(eventType => {
-          markerObj.addListener(eventType, event =>
-            this.handleMarkerDragged(event, markerObj.id)
-          );
-        });
+        this.addMarker(false, { ...marker, label: i + 1 });
       });
     },
 
@@ -124,9 +121,11 @@ export default {
     },
 
     updateMarker(markerId, data) {
-      const markers = this.data.markers;
+      const markers = this.markers;
       const markerIndex = markers.findIndex(marker => marker.id === markerId);
+
       if (markerIndex < 0) return false;
+
       markers[markerIndex] = {
         ...markers[markerIndex],
         ...data
