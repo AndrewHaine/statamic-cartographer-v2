@@ -28,7 +28,18 @@
         >
       </div>
     </div>
-    <div class="cartographer-field__map" v-el:map-container></div>
+    <div class="cartographer-field__map" v-el:map-container>
+      <div>
+        <small v-if="!apiKey" class="help-block my-1 ml-2">
+          <p>
+            Please enter your Google Maps API key in the
+            <a
+              href="/admin/addons/cartographer/settings"
+            >addon settings</a>.
+          </p>
+        </small>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -63,19 +74,18 @@ export default {
   },
 
   attached() {
-    if (typeof google === "undefined") return;
-
     this.apiKey = this.data.api_key;
+    if (typeof google === "undefined" || !this.apiKey) return;
+
     this.searchEnabled = this.data.search_enabled;
-
-    const mapEl = this.$els.mapContainer;
-
     this.center = (this.data && this.data.center) || {
       lat: 52.6318051,
       lng: 1.296734
     };
     this.map_type_id = (this.data && this.data.map_typ_id) || "roadmap";
     this.markers = (this.data && this.data.markers) || [];
+
+    const mapEl = this.$els.mapContainer;
 
     this.map = new google.maps.Map(mapEl, {
       center: this.center,
