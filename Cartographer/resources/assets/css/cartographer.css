@@ -14,3 +14,8 @@
   padding-bottom: calc(100% * (9 / 16));
   content: "";
 }
+
+.cartographer-field__controls {
+  width: 100%;
+  max-width: 750px;
+}

@@ -3,3 +3,7 @@ fields:
     type: text
     display: Google Maps API Key
     instructions: A Google maps API key is required for this fieldtype to function
+  google_maps_geocoding_enabled:
+    type: toggle
+    display: Enable text-based location search
+    instructions: <strong>Important!</strong> Requires you to enable the geocoding API on your associated google cloud project
