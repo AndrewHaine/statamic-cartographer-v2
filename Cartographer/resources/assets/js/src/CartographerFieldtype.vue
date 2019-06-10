@@ -235,6 +235,15 @@ export default {
       axios
         .get(endpointURI)
         .then(response => {
+          if (response.data.status !== "OK") {
+            return swal({
+              type: "error",
+              title: "Location Search Failed",
+              text: response.data.error_message || response.data.status,
+              confirmButtonText: "OK",
+              showCancelButton: false
+            });
+          }
           const result = response.data.results[0];
           const { lat, lng } = result.geometry.location;
           const center = new google.maps.LatLng(lat, lng);
