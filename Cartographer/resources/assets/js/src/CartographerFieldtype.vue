@@ -78,12 +78,9 @@ export default {
     if (typeof google === "undefined" || !this.apiKey) return;
 
     this.searchEnabled = this.data.search_enabled;
-    this.center = (this.data && this.data.center) || {
-      lat: 52.6318051,
-      lng: 1.296734
-    };
-    this.map_type_id = (this.data && this.data.map_typ_id) || "roadmap";
-    this.markers = (this.data && this.data.markers) || [];
+    this.center = this.data.center;
+    this.map_type_id = this.data.map_type_id;
+    this.markers = this.data.markers;
 
     const mapEl = this.$els.mapContainer;
 
@@ -120,6 +117,11 @@ export default {
   },
 
   methods: {
+    getReplicatorPreviewText() {
+      const { lat, lng } = this.data.center;
+      return `Center: Lat: ${lat}, Lng: ${lng}`;
+    },
+
     addMarker(isNew = true, markerData = null) {
       if (isNew) {
         markerData = {
