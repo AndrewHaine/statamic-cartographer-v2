@@ -114,7 +114,7 @@ export default {
       });
     });
 
-    this.markers.length && this.populateMarkers(this.markers);
+    this.markers && this.markers.length && this.populateMarkers(this.markers);
   },
 
   methods: {
