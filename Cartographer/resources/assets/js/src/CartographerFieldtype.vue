@@ -108,9 +108,10 @@ export default {
     });
 
     ["drag", "dragend"].forEach(eventType => {
-      this.centerMarker.addListener(eventType, event =>
-        this.handleMarkerDragged(event, "center", true)
-      );
+      this.centerMarker.addListener(eventType, event => {
+        this.dirtyCenter = false;
+        this.handleMarkerDragged(event, "center", true);
+      });
     });
 
     this.markers.length && this.populateMarkers(this.markers);
