@@ -2,8 +2,19 @@
   <section class="cartographer-field">
     <div class="cartographer-field__controls flex justify-between items-center">
       <div class="cartograpger-field__marker-controls">
-        <div v-if="dirtyCenter" class="btn-group my-1 mr-1">
-          <a href="#" class="btn btn-primary" @click.prevent="setCenter">Set center</a>
+        <div v-if="dirtyCenter || dirtyZoom" class="btn-group my-1 mr-1">
+          <a
+            v-if="dirtyCenter"
+            href="#"
+            class="btn btn-primary"
+            @click.prevent="setCenter"
+          >Set center</a>
+          <a
+            v-if="dirtyZoom"
+            href="#"
+            class="btn btn-primary"
+            @click.prevent="setZoomLevel"
+          >Set zoom level ({{ zoomLevel }})</a>
         </div>
         <div class="btn-group my-1 mr-2">
           <a href="#" class="btn btn-default" @click.prevent="addMarker">
@@ -55,15 +66,17 @@ export default {
   data() {
     return {
       apiKey: "",
+      busy: false,
       center: {},
       dirtyCenter: false,
-      busy: false,
+      dirtyZoom: false,
       map: null,
       map_type_id: "roadmap",
       markers: [],
       markerObjects: [],
       searchEnabled: false,
-      selectedMarker: null
+      selectedMarker: null,
+      zoomLevel: 10
     };
   },
 
@@ -78,9 +91,10 @@ export default {
     if (typeof google === "undefined" || !this.apiKey) return;
 
     this.searchEnabled = this.data.search_enabled;
-    this.center = this.data.center;
-    this.map_type_id = this.data.map_type_id;
-    this.markers = this.data.markers;
+    this.center = this.data.center || this.center;
+    this.map_type_id = this.data.map_type_id || this.map_type_id;
+    this.markers = this.data.markers || this.markers;
+    this.zoomLevel = this.data.zoom_level || this.zoomLevel;
 
     const mapEl = this.$els.mapContainer;
 
@@ -89,12 +103,16 @@ export default {
       fullscreenControl: false,
       mapTypeId: this.map_type_id,
       streetViewControl: false,
-      zoom: 3
+      zoom: this.zoomLevel
     });
 
     this.map.addListener("maptypeid_changed", this.handleMapTypeChange);
 
     this.map.addListener("dragend", () => (this.dirtyCenter = true));
+    this.map.addListener("zoom_changed", () => {
+      this.dirtyZoom = false;
+      this.zoomLevel = this.map.getZoom();
+    });
 
     this.centerMarker = new google.maps.Marker({
       draggable: true,
@@ -223,6 +241,11 @@ export default {
       this.dirtyCenter = false;
       this.centerMarker.setPosition(this.map.getCenter());
       this.data.center = this.map.getCenter().toJSON();
+    },
+
+    setZoomLevel() {
+      this.dirtyZoom = false;
+      this.data.zoom_level = this.zoomLevel;
     },
 
     requestLocation(e) {

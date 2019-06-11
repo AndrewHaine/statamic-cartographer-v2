@@ -16,7 +16,8 @@ class CartographerFieldtype extends Fieldtype
 			'center' => [ "lat" => 52.6318051, "lng" => 1.296734 ],
 			'markers' => [],
 			'map_type_id' => 'roadmap',
-			'search_enabled' => $this->getConfigBool('google_maps_geocoding_enabled', false)
+			'search_enabled' => $this->getConfigBool('google_maps_geocoding_enabled', false),
+			'zoom_level' => 10
 		];
 	}
 

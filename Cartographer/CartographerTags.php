@@ -47,13 +47,14 @@ class CartographerTags extends Tags
 		$center = $map_data['center'];
 		$markers = $map_data['markers'];
 		$map_type_id = $map_data['map_type_id'];
+		$zoom_level = $map_data['zoom_level'];
 
 		// Get data from params
 		$classes = $this->getParam('classes', '');
 		$id = uniqid('cartographer_field_');
 		$height = $this->getParam('height', '500px');
 		$width = $this->getParam('width', 'auto');
-		$zoom = $this->getParamInt('zoom', 10);
+		$zoom = $this->getParamInt('zoom', $zoom_level);
 
 		return compact(
 			'api_key',
