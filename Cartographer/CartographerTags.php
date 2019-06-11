@@ -39,6 +39,7 @@ class CartographerTags extends Tags
 		$map_data = $ctx[$fieldName];
 
 		$api_key = $this->getConfig('google_maps_api_key', '');
+		$gmaps_script = $this->js->url('cartographer_google_maps');
 
 		if($map_only) {
 			return collect($map_data)->merge(['api_key' => $api_key])->all();
@@ -48,7 +49,7 @@ class CartographerTags extends Tags
 		$markers = $map_data['markers'];
 		$map_type_id = $map_data['map_type_id'];
 		$zoom_level = $map_data['zoom_level'];
-		$custom_styles = array_key_exists('map_styles', $map_data) ? $map_data['map_styles'] : null;
+		$custom_styles = array_key_exists('map_styles', $map_data) ? json_decode($map_data['map_styles']) : null;
 
 		// Get data from params
 		$classes = $this->getParam('classes', '');
@@ -63,6 +64,7 @@ class CartographerTags extends Tags
 			'classes',
 			'custom_styles',
 			'id',
+			'gmaps_script',
 			'height',
 			'markers',
 			'map_type_id',
