@@ -10,6 +10,9 @@
 		id: "{{ $id }}",
 		map_type_id: "{{ $map_type_id }}",
 		markers: <?php echo json_encode($markers); ?>,
+		@if ($custom_styles)
+		styles: JSON.parse(<?php echo json_encode($custom_styles); ?>),
+		@endif
 		zoom: "{{ $zoom }}"
 	});
 
@@ -32,6 +35,7 @@
 		var map = new google.maps.Map(document.getElementById(data.id), {
 			center: data.center,
 			mapTypeId: data.map_type_id,
+			styles: data.styles || [],
 			zoom: parseInt(data.zoom)
 		});
 

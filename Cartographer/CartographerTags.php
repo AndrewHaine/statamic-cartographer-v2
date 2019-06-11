@@ -48,6 +48,7 @@ class CartographerTags extends Tags
 		$markers = $map_data['markers'];
 		$map_type_id = $map_data['map_type_id'];
 		$zoom_level = $map_data['zoom_level'];
+		$custom_styles = array_key_exists('map_styles', $map_data) ? $map_data['map_styles'] : null;
 
 		// Get data from params
 		$classes = $this->getParam('classes', '');
@@ -60,6 +61,7 @@ class CartographerTags extends Tags
 			'api_key',
 			'center',
 			'classes',
+			'custom_styles',
 			'id',
 			'height',
 			'markers',

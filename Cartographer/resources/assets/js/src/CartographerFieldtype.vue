@@ -51,6 +51,22 @@
         </small>
       </div>
     </div>
+    <a href="#" class="my-1 btn btn-default" @click.prevent="toggleAdvancedBox">
+      Styles
+      <i class="icon icon-plus icon-right"></i>
+    </a>
+    <div v-if="advancedBoxToggled" class="card">
+      <label class="block">Custom styles</label>
+      <small class="help-block">
+        These can be generated using
+        <a
+          href="https://snazzymaps.com/"
+          target="_blank"
+          rel="noopener"
+        >SnazzyMaps</a>.
+      </small>
+      <textarea v-model="data.map_styles" placeholder="Paste custom styles here." class="w-full"></textarea>
+    </div>
   </section>
 </template>
 
@@ -65,6 +81,7 @@ export default {
 
   data() {
     return {
+      advancedBoxToggled: false,
       apiKey: "",
       busy: false,
       center: {},
@@ -103,6 +120,7 @@ export default {
       fullscreenControl: false,
       mapTypeId: this.map_type_id,
       streetViewControl: false,
+      styles: this.data.map_styles ? JSON.parse(this.data.map_styles) : [],
       zoom: this.zoomLevel
     });
 
@@ -110,7 +128,7 @@ export default {
 
     this.map.addListener("dragend", () => (this.dirtyCenter = true));
     this.map.addListener("zoom_changed", () => {
-      this.dirtyZoom = false;
+      this.dirtyZoom = true;
       this.zoomLevel = this.map.getZoom();
     });
 
@@ -139,6 +157,10 @@ export default {
     getReplicatorPreviewText() {
       const { lat, lng } = this.data.center;
       return `Center: Lat: ${lat}, Lng: ${lng}`;
+    },
+
+    toggleAdvancedBox() {
+      this.advancedBoxToggled = !this.advancedBoxToggled;
     },
 
     addMarker(isNew = true, markerData = null) {
