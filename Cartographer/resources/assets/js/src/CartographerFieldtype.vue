@@ -16,17 +16,18 @@
             @click.prevent="setZoomLevel"
           >Set zoom level ({{ zoomLevel }})</a>
         </div>
-        <div class="btn-group my-1 mr-2">
+        <div v-if="!selectedMarker" class="btn-group my-1 mr-2">
           <a href="#" class="btn btn-default" @click.prevent="addMarker">
             Marker
             <i class="icon icon-plus icon-right"></i>
           </a>
         </div>
         <div v-if="selectedMarker" class="btn-group my-1 mr-2">
-          <a href="#" class="btn btn-danger" @click.prevent="removeMarker(selectedMarker)">
-            Remove Marker
-            <i class="icon icon-trash icon-right"></i>
+          <a href="#" class="btn btn-white" @click.prevent="toggleMarkerEditBox">
+            <i class="icon icon-pencil icon-left"></i>
+            Edit
           </a>
+          <a href="#" class="btn btn-danger" @click.prevent="removeMarker(selectedMarker)">Remove</a>
         </div>
       </div>
       <div v-if="searchEnabled" class="controls flex items-center lg:w-auto">
@@ -37,6 +38,23 @@
           placeholder="Search for a location"
           :disabled="isBusy"
         >
+      </div>
+    </div>
+    <div
+      v-if="selectedMarker && markerEditBoxToggled"
+      class="my-2 card cartograpger-field__marker-edit-box"
+    >
+      <label class="block uppercase mb-1">Edit marker</label>
+      <div class="w-full">
+        <div class="field-inner">
+          <label class="block">Icon</label>
+          <div class="help-block">Paste the url of the marker icon image</div>
+          <input
+            v-model="data.markers[selectedMarkerIndex].icon"
+            type="text"
+            class="form-control type-text"
+          >
+        </div>
       </div>
     </div>
     <div class="cartographer-field__map" v-el:map-container>
@@ -55,7 +73,7 @@
       Styles
       <i class="icon icon-plus icon-right"></i>
     </a>
-    <div v-if="advancedBoxToggled" class="card">
+    <div v-if="advancedBoxToggled" class="card cartograpger-field__advanced-panel">
       <label class="block">Custom styles</label>
       <small class="help-block">
         These can be generated using
@@ -65,7 +83,12 @@
           rel="noopener"
         >SnazzyMaps</a>.
       </small>
-      <textarea v-model="data.map_styles" placeholder="Paste custom styles here." class="w-full"></textarea>
+      <textarea
+        v-model="data.map_styles"
+        placeholder="Paste custom styles here."
+        class="w-full"
+        rows="10"
+      ></textarea>
     </div>
   </section>
 </template>
@@ -90,6 +113,7 @@ export default {
       map: null,
       map_type_id: "roadmap",
       markers: [],
+      markerEditBoxToggled: false,
       markerObjects: [],
       searchEnabled: false,
       selectedMarker: null,
@@ -163,16 +187,21 @@ export default {
       this.advancedBoxToggled = !this.advancedBoxToggled;
     },
 
+    toggleMarkerEditBox() {
+      this.markerEditBoxToggled = !this.markerEditBoxToggled;
+    },
+
     addMarker(isNew = true, markerData = null) {
       if (isNew) {
         markerData = {
           id: uuid(),
           label: this.markers.length + 1,
-          position: this.map.getCenter().toJSON()
+          position: this.map.getCenter().toJSON(),
+          icon: null
         };
       }
 
-      const { id, label, position } = markerData;
+      const { id, label, position, icon } = markerData;
       if (isNew) this.markers.push({ id, position });
 
       const newMarker = new google.maps.Marker({
@@ -180,6 +209,7 @@ export default {
         draggable: true,
         map: this.map,
         position: position,
+        icon,
         id,
         label: label.toString()
       });
@@ -195,11 +225,14 @@ export default {
       this.markerObjects.push(newMarker);
     },
 
-    updateMarker(markerId, data, remove = false) {
-      const markers = this.markers;
-      const markerIndex = markers.findIndex(marker => marker.id === markerId);
+    getMarkerIndex(id) {
+      const markerIndex = this.markers.findIndex(marker => marker.id === id);
+      return markerIndex >= 0 ? markerIndex : null;
+    },
 
-      if (markerIndex < 0) return false;
+    updateMarker(markerId, data, remove = false) {
+      const markerIndex = this.getMarkerIndex(markerId);
+      const markers = this.markers;
 
       markers[markerIndex] = {
         ...markers[markerIndex],
@@ -225,10 +258,12 @@ export default {
 
     toggleSelectedMarker(markerId) {
       this.selectedMarker = this.selectedMarker === markerId ? null : markerId;
+      this.selectedMarkerIndex = this.getMarkerIndex(markerId);
       this.markerObjects.forEach(markerObject => {
         if (markerObject.id === this.selectedMarker) {
           markerObject.setAnimation(google.maps.Animation.BOUNCE);
         } else {
+          this.markerEditBoxToggled = false;
           markerObject.setAnimation(null);
         }
       });

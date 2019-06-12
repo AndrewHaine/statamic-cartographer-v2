@@ -12,6 +12,7 @@ function initGmaps () {
         var map = new google.maps.Map(document.getElementById(data.id), {
             center: data.center,
             mapTypeId: data.map_type_id,
+            icon: data.icon,
             styles: data.custom_styles || [],
             zoom: data.zoom
         });
@@ -21,6 +22,7 @@ function initGmaps () {
             new google.maps.Marker({
                 id: marker.id,
                 map: map,
+                icon: marker.icon,
                 position: new google.maps.LatLng(marker.position)
             })
         }
@@ -29,7 +31,8 @@ function initGmaps () {
     var script = document.createElement('script'),
         apiKey = document.querySelector('meta[type="cartographer_gmaps_api_key"]');
     script.type = 'text/javascript';
-    script.src = "https://maps.googleapis.com/maps/api/js?key=" + apiKey.getAttribute('content') + '&callback=initCartographerGoogleMaps';
+    script.src = "https://maps.googleapis.com/maps/api/js?key=" + apiKey.getAttribute('content');
+    script.onload = initCartographerGoogleMaps;
     document.getElementsByTagName('head')[0].appendChild(script);
 };
 
