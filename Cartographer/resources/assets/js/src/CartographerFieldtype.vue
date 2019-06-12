@@ -1,7 +1,7 @@
 <template>
   <section class="cartographer-field">
     <div class="cartographer-field__controls flex justify-between items-center">
-      <div class="cartograpger-field__marker-controls">
+      <div class="cartograher-field__marker-controls">
         <div v-if="dirtyCenter || dirtyZoom" class="btn-group my-1 mr-1">
           <a
             v-if="dirtyCenter"
@@ -42,7 +42,7 @@
     </div>
     <div
       v-if="selectedMarker && markerEditBoxToggled"
-      class="my-2 card cartograpger-field__marker-edit-box"
+      class="my-2 card cartographer-field__marker-edit-box"
     >
       <label class="block uppercase mb-1">Edit marker</label>
       <div class="w-full">
@@ -73,7 +73,7 @@
       Styles
       <i class="icon icon-plus icon-right"></i>
     </a>
-    <div v-if="advancedBoxToggled" class="card cartograpger-field__advanced-panel">
+    <div v-if="advancedBoxToggled" class="card cartographer-field__advanced-panel">
       <label class="block">Custom styles</label>
       <small class="help-block">
         These can be generated using

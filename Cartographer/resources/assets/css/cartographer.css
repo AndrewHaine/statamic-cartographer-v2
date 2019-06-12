@@ -15,9 +15,9 @@
   content: "";
 }
 
-.cartograpger-field__advanced-panel,
+.cartographer-field__advanced-panel,
 .cartographer-field__controls,
-.cartograpger-field__marker-edit-box {
+.cartographer-field__marker-edit-box {
   width: 100%;
   max-width: 750px;
 }
