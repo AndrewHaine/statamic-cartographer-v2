@@ -30,13 +30,13 @@
           <a href="#" class="btn btn-danger" @click.prevent="removeMarker(selectedMarker)">Remove</a>
         </div>
       </div>
-      <div v-if="searchEnabled" class="controls flex items-center lg:w-auto">
+      <div v-if="data.searchEnabled" class="controls flex items-center lg:w-auto">
         <input
           v-on:keyup.13="requestLocation"
           type="text"
           class="filter-control search w-full"
           placeholder="Search for a location"
-          :disabled="isBusy"
+          :disabled="busy"
         >
       </div>
     </div>
@@ -44,14 +44,26 @@
       v-if="selectedMarker && markerEditBoxToggled"
       class="my-2 card cartographer-field__marker-edit-box"
     >
-      <label class="block uppercase mb-1">Edit marker</label>
-      <div class="w-full">
+      <label class="block uppercase">Edit marker</label>
+      <div class="w-full my-1">
         <div class="field-inner">
           <label class="block">Icon</label>
           <div class="help-block">Paste the url of the marker icon image</div>
           <input
-            v-model="data.markers[selectedMarkerIndex].icon"
-            v-on:change="setMarkerIcon"
+            @change="setMarkerIcon"
+            :value="data.markers[seletedMarkerIndex].icon"
+            type="text"
+            class="form-control type-text"
+          >
+        </div>
+      </div>
+      <div class="w-1/4 my-1">
+        <div class="field-inner">
+          <label class="block">Label</label>
+          <div class="help-block">Set a marker label</div>
+          <input
+            @input="setMarkerLabel"
+            :value="data.markers[selectedMarkerIndex].label"
             type="text"
             class="form-control type-text"
           >
@@ -89,7 +101,6 @@
         placeholder="Paste custom styles here."
         class="w-full"
         rows="10"
-        v-on:change="setMapStyles"
       ></textarea>
     </div>
   </section>
@@ -109,23 +120,25 @@ export default {
       advancedBoxToggled: false,
       apiKey: "",
       busy: false,
-      center: {},
       dirtyCenter: false,
       dirtyZoom: false,
       map: null,
-      map_type_id: "roadmap",
-      markers: [],
       markerEditBoxToggled: false,
       markerObjects: [],
-      searchEnabled: false,
       selectedMarker: null,
-      zoomLevel: 10
+      zoomLevel: this.data.zoom_level
     };
   },
 
   computed: {
-    isBusy() {
-      return this.busy;
+    computedMarkers: function() {
+      return JSON.parse(JSON.stringify(this.data.markers));
+    }
+  },
+
+  watch: {
+    "data.map_styles": function(val) {
+      this.setMapStyles(val);
     }
   },
 
@@ -133,35 +146,31 @@ export default {
     this.apiKey = this.data.api_key;
     if (typeof google === "undefined" || !this.apiKey) return;
 
-    this.searchEnabled = this.data.search_enabled;
-    this.center = this.data.center || this.center;
-    this.map_type_id = this.data.map_type_id || this.map_type_id;
-    this.markers = this.data.markers || this.markers;
-    this.zoomLevel = this.data.zoom_level || this.zoomLevel;
-
     const mapEl = this.$els.mapContainer;
 
     this.map = new google.maps.Map(mapEl, {
-      center: this.center,
+      center: this.data.center,
       fullscreenControl: false,
-      mapTypeId: this.map_type_id,
+      mapTypeId: this.data.map_type_id,
       streetViewControl: false,
       styles: this.data.map_styles ? JSON.parse(this.data.map_styles) : [],
-      zoom: this.zoomLevel
+      zoom: this.data.zoom_level
     });
 
-    this.map.addListener("maptypeid_changed", this.handleMapTypeChange);
+    this.map.addListener("maptypeid_changed", () => {
+      this.data.map_type_id = this.map.getMapTypeId();
+    });
 
     this.map.addListener("dragend", () => (this.dirtyCenter = true));
     this.map.addListener("zoom_changed", () => {
-      this.dirtyZoom = true;
       this.zoomLevel = this.map.getZoom();
+      this.dirtyZoom = true;
     });
 
     this.centerMarker = new google.maps.Marker({
       draggable: true,
       map: this.map,
-      position: this.center,
+      position: this.data.center,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 10,
@@ -176,7 +185,7 @@ export default {
       });
     });
 
-    this.markers && this.markers.length && this.populateMarkers(this.markers);
+    this.populateMarkers(this.data.markers);
   },
 
   methods: {
@@ -197,14 +206,15 @@ export default {
       if (isNew) {
         markerData = {
           id: uuid(),
-          label: this.markers.length + 1,
           position: this.map.getCenter().toJSON(),
-          icon: null
+          icon: null,
+          label: null
         };
       }
 
+      if (isNew) this.data.markers.push(markerData);
+
       const { id, label, position, icon } = markerData;
-      if (isNew) this.markers.push({ id, position });
 
       const newMarker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
@@ -213,7 +223,7 @@ export default {
         position: position,
         icon,
         id,
-        label: label.toString()
+        label
       });
 
       ["drag", "dragend"].forEach(eventType => {
@@ -228,13 +238,15 @@ export default {
     },
 
     getMarkerIndex(id) {
-      const markerIndex = this.markers.findIndex(marker => marker.id === id);
+      const markerIndex = this.data.markers.findIndex(
+        marker => marker.id === id
+      );
       return markerIndex >= 0 ? markerIndex : null;
     },
 
     updateMarker(markerId, data, remove = false) {
       const markerIndex = this.getMarkerIndex(markerId);
-      const markers = this.markers;
+      const markers = this.data.markers;
 
       markers[markerIndex] = {
         ...markers[markerIndex],
@@ -256,7 +268,29 @@ export default {
     },
 
     setMarkerIcon(e) {
-      this.getMarkerById(this.selectedMarker).setIcon(e.target.value);
+      const val = e.target.value;
+      this.data.markers[this.selectedMarkerIndex].icon = e.target.value;
+      this.setMarkerAttribute("icon", val);
+    },
+
+    setMarkerLabel(e) {
+      const val = e.target.value;
+      this.data.markers[this.selectedMarkerIndex].label = e.target.value;
+      this.setMarkerAttribute("label", val);
+    },
+
+    setMarkerAttribute(attr, val) {
+      const marker = this.getMarkerById(this.selectedMarker);
+      switch (attr) {
+        case "icon":
+          marker.setIcon(val);
+          break;
+        case "label":
+          marker.setLabel(val ? String(val) : "");
+          break;
+        default:
+          break;
+      }
     },
 
     removeMarker(markerId) {
@@ -280,16 +314,7 @@ export default {
     },
 
     populateMarkers(markers) {
-      markers.forEach((marker, i) => {
-        this.addMarker(false, { ...marker, label: i + 1 });
-      });
-    },
-
-    handleMapTypeChange() {
-      this.data = {
-        ...this.data,
-        map_type_id: this.map.getMapTypeId()
-      };
+      markers.forEach(marker => this.addMarker(false, marker));
     },
 
     handleMarkerDragged(event, markerId, isCenter = false) {
@@ -312,15 +337,14 @@ export default {
 
     setZoomLevel() {
       this.dirtyZoom = false;
-      this.data.zoom_level = this.zoomLevel;
+      this.data.zoom_level = this.map.getZoom();
     },
 
-    setMapStyles(e) {
+    setMapStyles(stylesRaw) {
+      if (!stylesRaw) return this.map.setOptions({ styles: [] });
       try {
-        const styles = JSON.parse(e.target.value);
-        this.map.setOptions({
-          styles: styles
-        });
+        const styles = JSON.parse(stylesRaw);
+        this.map.setOptions({ styles });
       } catch (e) {
         return swal({
           type: "error",

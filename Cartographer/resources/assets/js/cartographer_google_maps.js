@@ -23,6 +23,7 @@ function initGmaps () {
                 id: marker.id,
                 map: map,
                 icon: marker.icon,
+                label: marker.label,
                 position: new google.maps.LatLng(marker.position)
             })
         }
