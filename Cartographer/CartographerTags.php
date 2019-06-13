@@ -18,6 +18,27 @@ class CartographerTags extends Tags
 	}
 
 	/**
+	 * Return the components of the map as "parts"
+	 *
+	 * @return string
+	 */
+	public function parts()
+	{
+		$data = $this->get_data();
+		$parsedData = $this->parse([
+			'api_key' => $data['api_key'],
+			'center' => $data['center'],
+			'id' => $data['id'],
+			'markers' => $data['markers'],
+			'metadata' => [
+				'map_type_id' => $data['map_type_id'],
+				'zoom' => $data['zoom']
+			]
+		]);
+		return $parsedData;
+	}
+
+	/**
 	 * Return a dump of all the data in the field
 	 *
 	 * @return string
