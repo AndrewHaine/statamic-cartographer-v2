@@ -51,6 +51,7 @@
           <div class="help-block">Paste the url of the marker icon image</div>
           <input
             v-model="data.markers[selectedMarkerIndex].icon"
+            v-on:change="setMarkerIcon"
             type="text"
             class="form-control type-text"
           >
@@ -88,6 +89,7 @@
         placeholder="Paste custom styles here."
         class="w-full"
         rows="10"
+        v-on:change="setMapStyles"
       ></textarea>
     </div>
   </section>
@@ -247,12 +249,20 @@ export default {
       };
     },
 
+    getMarkerById(markerId) {
+      return this.markerObjects.filter(
+        markerObject => markerObject.id === markerId
+      )[0];
+    },
+
+    setMarkerIcon(e) {
+      this.getMarkerById(this.selectedMarker).setIcon(e.target.value);
+    },
+
     removeMarker(markerId) {
       this.selectedMarker = null;
       this.updateMarker(markerId, null, true);
-      const markerObject = this.markerObjects.filter(
-        markerObject => markerObject.id === markerId
-      )[0];
+      const markerObject = this.getMarkerById(markerId);
       markerObject.setMap(null);
     },
 
@@ -303,6 +313,23 @@ export default {
     setZoomLevel() {
       this.dirtyZoom = false;
       this.data.zoom_level = this.zoomLevel;
+    },
+
+    setMapStyles(e) {
+      try {
+        const styles = JSON.parse(e.target.value);
+        this.map.setOptions({
+          styles: styles
+        });
+      } catch (e) {
+        return swal({
+          type: "error",
+          title: "Could not parse styles",
+          text: e,
+          confirmButtonText: "OK",
+          showCancelButton: false
+        });
+      }
     },
 
     requestLocation(e) {
