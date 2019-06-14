@@ -30,7 +30,7 @@
           <a href="#" class="btn btn-danger" @click.prevent="removeMarker(selectedMarker)">Remove</a>
         </div>
       </div>
-      <div v-if="data.searchEnabled" class="controls flex items-center lg:w-auto">
+      <div v-if="data.search_enabled" class="controls flex items-center lg:w-auto">
         <input
           v-on:keyup.13="requestLocation"
           type="text"
