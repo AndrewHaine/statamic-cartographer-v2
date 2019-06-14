@@ -32,7 +32,8 @@ class CartographerTags extends Tags
 			'markers' => $data['markers'],
 			'metadata' => [
 				'map_type_id' => $data['map_type_id'],
-				'zoom' => $data['zoom']
+				'styles' => json_encode($data['custom_styles']),
+				'zoom' => $data['zoom'],
 			]
 		]);
 		return $parsedData;
