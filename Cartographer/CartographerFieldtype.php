@@ -17,7 +17,7 @@ class CartographerFieldtype extends Fieldtype
 			'markers' => [],
 			'map_type_id' => 'roadmap',
 			'search_enabled' => $this->getConfigBool('google_maps_geocoding_enabled', false),
-			'zoom_level' => 10
+			'zoom_level' => 4
 		];
 	}
 

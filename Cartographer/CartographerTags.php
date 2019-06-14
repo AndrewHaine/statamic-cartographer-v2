@@ -3,6 +3,7 @@
 namespace Statamic\Addons\Cartographer;
 
 use Statamic\Extend\Tags;
+use Illuminate\Support\Facades\Log;
 
 class CartographerTags extends Tags
 {
@@ -13,8 +14,12 @@ class CartographerTags extends Tags
 	 */
 	public function index()
 	{
-		$data = $this->get_data();
-		return $this->view('cartographer_google_map', $data);
+		if(!$data = $this->get_data()) return;
+		switch($data['mode']) {
+			case 'google':
+			default:
+				return $this->view('cartographer_google_map', $data);
+		}
 	}
 
 	/**
@@ -24,7 +29,7 @@ class CartographerTags extends Tags
 	 */
 	public function parts()
 	{
-		$data = $this->get_data();
+		if(!$data = $this->get_data()) return;
 		$parsedData = $this->parse([
 			'api_key' => $data['api_key'],
 			'center' => $data['center'],
@@ -46,7 +51,8 @@ class CartographerTags extends Tags
 	 */
 	public function dump()
 	{
-		return json_encode($this->get_data(true));
+		if(!$data = $this->get_data(true)) return;
+		return json_encode($data);
 	}
 
 	/**
@@ -58,20 +64,27 @@ class CartographerTags extends Tags
 	{
 		$fieldName = $this->getParam('field');
 		$ctx = $this->context;
-		$map_data = $ctx[$fieldName];
+
+		if(!array_key_exists($fieldName, $ctx)) {
+			Log::error("[Cartographer] Attempted to get field \"{$fieldName}\" which doesn't exist in the current context");
+			return false;
+		}
+
+		$map_data = collect($ctx[$fieldName]);
 
 		$api_key = $this->getConfig('google_maps_api_key', '');
 		$gmaps_script = $this->js->url('cartographer_google_maps');
 
 		if($map_only) {
-			return collect($map_data)->merge(['api_key' => $api_key])->all();
+			return $map_data->merge(['api_key' => $api_key])->all();
 		}
 
-		$center = $map_data['center'];
-		$markers = $map_data['markers'];
-		$map_type_id = $map_data['map_type_id'];
-		$zoom_level = $map_data['zoom_level'];
-		$custom_styles = array_key_exists('map_styles', $map_data) ? json_decode($map_data['map_styles']) : null;
+		$center = $map_data->get('center');
+		$custom_styles = json_decode($map_data->get('map_styles', ""));
+		$markers = $map_data->get('markers', []);
+		$map_type_id = $map_data->get('map_type_id');
+		$mode = $map_data->get('mode', 'google');
+		$zoom_level = $map_data->get('zoom_level');
 
 		// Get data from params
 		$classes = $this->getParam('classes', '');
@@ -90,6 +103,7 @@ class CartographerTags extends Tags
 			'height',
 			'markers',
 			'map_type_id',
+			'mode',
 			'width',
 			'zoom'
 		);

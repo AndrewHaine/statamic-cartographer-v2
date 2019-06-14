@@ -144,6 +144,7 @@ export default {
 
   attached() {
     this.apiKey = this.data.api_key;
+    this.data.mode = this.config.cartographer_type || "google";
     if (typeof google === "undefined" || !this.apiKey) return;
 
     const mapEl = this.$els.mapContainer;
