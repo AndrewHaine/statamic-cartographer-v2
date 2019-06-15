@@ -5,9 +5,3 @@ addon_url: https://github.com/AndrewHaine/statamic-cartographer
 developer: Andrew Haine
 developer_url: https://www.andrewhaine.co.uk
 commercial: true
-fieldtype_fields:
-  cartographer_type:
-    type: select
-    default: google
-    options:
-      google: Google Maps
