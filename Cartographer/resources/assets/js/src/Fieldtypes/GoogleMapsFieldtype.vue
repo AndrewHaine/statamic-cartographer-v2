@@ -109,9 +109,17 @@ export default {
         fullscreenControl: false,
         mapTypeId: this.data.map_type_id,
         streetViewControl: false,
-        styles: this.data.map_styles ? JSON.parse(this.data.map_styles) : [],
         zoom: this.data.zoom_level
       });
+
+      if (this.data.map_styles) {
+        try {
+          const styles = JSON.parse(this.data.map_styles);
+          this.setMapStyles(styles);
+        } catch (e) {
+          console.error(`Failed to set initial styles: ${e}`);
+        }
+      }
 
       this.center = this.map.getCenter().toJSON();
 
@@ -190,13 +198,7 @@ export default {
         const styles = JSON.parse(stylesRaw);
         this.map.setOptions({ styles });
       } catch (e) {
-        return swal({
-          type: "error",
-          title: "Could not parse styles",
-          text: e,
-          confirmButtonText: "OK",
-          showCancelButton: false
-        });
+        console.error(`Failed to parse map styles: ${e}`);
       }
     },
 

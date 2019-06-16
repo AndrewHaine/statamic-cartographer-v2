@@ -2,7 +2,6 @@ import uuid from "uuid/v4";
 
 export default {
   ready() {
-    if(!this.data.api_key) return;
     this.setMode();
     this.initMap();
     this.addCenterMarker();
@@ -31,13 +30,22 @@ export default {
   },
 
   methods: {
-    generateNewMarker() {
-      return {
+    generateNewMarker(mode) {
+      let markerData = {
         id: uuid(),
         position: this.center,
-        icon: null,
-        label: null
       };
+
+      if(mode === 'google') {
+        markerData.icon = null;
+        markerData.label = null;
+      }
+
+      if(mode === 'mapbox') {
+        markerData.color = null;
+      }
+
+      return markerData;
     },
 
     getReplicatorPreviewText() {

@@ -7,7 +7,11 @@ use Statamic\Extend\Listener;
 class CartographerListener extends Listener
 {
     public $events = [
-        'cp.add_to_head' => ['injectCartographerStyles', 'injectGMapsScript']
+        'cp.add_to_head' => [
+			'injectCartographerStyles',
+			'injectGMapsScript',
+			'injectMapboxGLJSFiles'
+		]
 	];
 
     /**
@@ -22,14 +26,29 @@ class CartographerListener extends Listener
 	}
 
 	/**
-	 * Load in the google maps API script
-	 * @return string
+	 * Load in the Google Maps API script
+	 * @return string|false
 	 */
 	public function injectGMapsScript()
 	{
 		$api_key = $this->getConfig('google_maps_api_key');
+		if(!$api_key) return false;
 		$script = "https://maps.googleapis.com/maps/api/js?key={$api_key}";
 		$tag = "<script src='{$script}'></script>";
 		return $tag;
+	}
+
+	/**
+	 * Load the required files for Mapbox GL JS
+	 *
+	 * @return string|false
+	 */
+	public function injectMapboxGLJSFiles()
+	{
+		$access_token = $this->getConfig('mapbox_access_token');
+		if(!$access_token) return false;
+		$scriptTag = "<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>";
+		$cssLink = "<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />";
+		return implode('', [$scriptTag, $cssLink]);
 	}
 }

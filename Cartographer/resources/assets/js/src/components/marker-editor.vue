@@ -1,7 +1,7 @@
 <template>
   <div v-if="isOpen" class="my-2 card cartographer-field__marker-edit-box">
     <label class="block uppercase">Edit marker</label>
-    <div class="w-full my-1">
+    <div v-if="data.mode == 'google'" class="w-full my-1">
       <div class="field-inner">
         <label class="block">Icon</label>
         <div class="help-block">Paste the url of the marker icon image</div>
@@ -13,13 +13,25 @@
         >
       </div>
     </div>
-    <div class="w-1/4 my-1">
+    <div v-if="data.mode == 'google'" class="w-1/4 my-1">
       <div class="field-inner">
         <label class="block">Label</label>
         <div class="help-block">Set a marker label</div>
         <input
           @input="setAttribute($event, 'label')"
           :value="data.markers[markerIndex].label"
+          type="text"
+          class="form-control type-text"
+        >
+      </div>
+    </div>
+    <div v-if="data.mode == 'mapbox'" class="w-1/4 my-1">
+      <div class="field-inner">
+        <label class="block">Color</label>
+        <div class="help-block">Set the marker color. e.g. `#ffee00`.</div>
+        <input
+          @input="setAttribute($event, 'label')"
+          :value="data.markers[markerIndex].color"
           type="text"
           class="form-control type-text"
         >

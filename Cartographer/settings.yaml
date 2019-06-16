@@ -1,9 +1,21 @@
 fields:
+  google_maps_api_section:
+    type: section
+    display: Google Maps
+    instructions: Configure the settings for the Google Maps field
   google_maps_api_key:
     type: text
     display: Google Maps API Key
-    instructions: A Google maps API key is required for this fieldtype to function
+    instructions: A Google Maps API key will be required if you wish to use the gmaps field.
   google_maps_geocoding_enabled:
     type: toggle
     display: Enable text-based location search
-    instructions: <strong>Important!</strong> Requires you to enable the geocoding API on your associated google cloud project
+    instructions: <strong>Important!</strong> Requires you to enable the Geocoding API on your associated google cloud project
+  mapbox_api_section:
+    type: section
+    display: Mapbox
+    instructions: Configure the settings for the mapbox field
+  mapbox_access_token:
+    type: text
+    display: Mapbox Access Token
+    instructions: A Mapbox access token will be required if you wish to use the mapbox field.

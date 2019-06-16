@@ -16,6 +16,8 @@ class CartographerTags extends Tags
 	{
 		if(!$data = $this->get_data()) return;
 		switch($data['mode']) {
+			case 'mapbox':
+				return $this->view('cartographer_mapbox_map', $data);
 			case 'google':
 			default:
 				return $this->view('cartographer_google_map', $data);
@@ -73,17 +75,23 @@ class CartographerTags extends Tags
 		$map_data = collect($ctx[$fieldName]);
 
 		$api_key = $this->getConfig('google_maps_api_key', '');
+		$mapbox_access_token = $this->getConfig('mapbox_access_token', '');
 		$gmaps_script = $this->js->url('cartographer_google_maps');
+		$mapbox_script = $this->js->url('cartographer_mapbox');
 
 		if($map_only) {
 			return $map_data->merge(['api_key' => $api_key])->all();
 		}
 
 		$center = $map_data->get('center');
-		$custom_styles = json_decode($map_data->get('map_styles', ""));
+		$mode = $map_data->get('mode', 'google');
+		if($mode === 'google') {
+			$custom_styles = json_decode($map_data->get('map_styles', ""));
+		} else {
+			$custom_styles = $map_data->get('map_styles', "");
+		}
 		$markers = $map_data->get('markers', []);
 		$map_type_id = $map_data->get('map_type_id');
-		$mode = $map_data->get('mode', 'google');
 		$zoom_level = $map_data->get('zoom_level');
 
 		// Get data from params
@@ -103,6 +111,8 @@ class CartographerTags extends Tags
 			'height',
 			'markers',
 			'map_type_id',
+			'mapbox_access_token',
+			'mapbox_script',
 			'mode',
 			'width',
 			'zoom'
