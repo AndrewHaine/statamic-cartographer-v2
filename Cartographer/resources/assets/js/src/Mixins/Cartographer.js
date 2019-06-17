@@ -1,7 +1,8 @@
 import uuid from "uuid/v4";
 
 export default {
-  ready() {
+  attached() {
+    if(!this.hasKey) return;
     this.setMode();
     this.initMap();
     this.addCenterMarker();
@@ -15,18 +16,13 @@ export default {
       centerMarker: {},
       dirtyCenter: false,
       dirtyZoom: false,
+      hasKey: false,
       map: null,
       markerObjects: [],
       selectedMarker: null,
       selectedMarkerIndex: 0,
-      zoomLevel: this.data.zoom_level
+      zoomLevel: 4
     };
-  },
-
-  watch: {
-    "data.map_styles": function (val) {
-      this.setMapStyles(val);
-    }
   },
 
   methods: {
@@ -48,11 +44,6 @@ export default {
       return markerData;
     },
 
-    getReplicatorPreviewText() {
-      const { lat, lng } = this.data.center;
-      return `Center: Lat: ${lat}, Lng: ${lng}`;
-    },
-
     getMarkerById(markerId) {
       return this.markerObjects.filter(
         markerObject => markerObject.id === markerId
@@ -62,6 +53,11 @@ export default {
     getMarkerIndex(id = null) {
       if (!id) return -1;
       return this.data.markers.findIndex(marker => marker.id === id);
+    },
+
+    getReplicatorPreviewText() {
+      const { lat, lng } = this.data.center;
+      return `Center: Lat: ${lat}, Lng: ${lng}`;
     },
 
     populateMarkers(markers) {

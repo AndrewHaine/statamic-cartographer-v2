@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="cartographer-field" v-if="data.api_key">
+    <section class="cartographer-field" v-if="hasKey">
       <cartographer-control-panel
         :busy="busy"
         :center="center"
@@ -38,7 +38,17 @@ import Cartographer from "../Mixins/Cartographer";
 export default {
   props: ["data", "config", "name"],
 
-  mixins: [Cartographer, Fieldtype],
+  mixins: [Cartographer],
+
+  created() {
+    this.hasKey = !!this.data.api_key;
+  },
+
+  watch: {
+    "data.map_styles": function(val) {
+      this.setMapStyles(val);
+    }
+  },
 
   methods: {
     addMarker(isNew = true, markerData = null) {

@@ -4,3 +4,4 @@ Vue.component('cartographer-marker-editor', require('./components/marker-editor.
 Vue.component('cartographer-mapbox-markers', require('./components/mapbox-markers-table.vue'));
 Vue.component("cartographer-google_maps-fieldtype", require('./Fieldtypes/GoogleMapsFieldtype.vue'));
 Vue.component("cartographer-mapbox-fieldtype", require('./Fieldtypes/MapboxFieldtype.vue'));
+Vue.component("cartographer-fieldtype", require('./Fieldtypes/CartographerFieldtype.vue'));

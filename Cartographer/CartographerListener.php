@@ -32,7 +32,6 @@ class CartographerListener extends Listener
 	public function injectGMapsScript()
 	{
 		$api_key = $this->getConfig('google_maps_api_key');
-		if(!$api_key) return false;
 		$script = "https://maps.googleapis.com/maps/api/js?key={$api_key}";
 		$tag = "<script src='{$script}'></script>";
 		return $tag;
@@ -46,7 +45,6 @@ class CartographerListener extends Listener
 	public function injectMapboxGLJSFiles()
 	{
 		$access_token = $this->getConfig('mapbox_access_token');
-		if(!$access_token) return false;
 		$scriptTag = "<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>";
 		$cssLink = "<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />";
 		return implode('', [$scriptTag, $cssLink]);
