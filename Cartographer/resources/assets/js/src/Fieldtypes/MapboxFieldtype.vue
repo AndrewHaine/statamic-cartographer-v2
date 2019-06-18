@@ -13,6 +13,7 @@
         @set-center="setCenter"
       ></cartographer-control-panel>
       <div class="cartographer-field__map" v-el:map-container></div>
+      <cartographer-advanced-box :data.sync="data"></cartographer-advanced-box>
       <cartographer-mapbox-markers
         v-if="data.markers.length"
         :data.sync="data"
@@ -22,7 +23,6 @@
         @marker-position-changed="updateMarkerPosition"
         @remove-marker="removeMarker"
       ></cartographer-mapbox-markers>
-      <cartographer-advanced-box :data.sync="data"></cartographer-advanced-box>
     </section>
     <small v-else class="help-block my-1">
       <p>
@@ -49,9 +49,21 @@ export default {
     this.hasKey = !!this.data.access_token;
   },
 
+  data() {
+    return {
+      fullscreenControl: new mapboxgl.FullscreenControl(),
+      navigationControl: new mapboxgl.NavigationControl(),
+      scaleControl: new mapboxgl.ScaleControl()
+    };
+  },
+
   watch: {
     "data.map_styles": function(val) {
       this.setMapStyles(val);
+    },
+
+    "data.map_controls": function(val) {
+      this.setMapControls(val);
     }
   },
 
@@ -124,6 +136,10 @@ export default {
         zoom: this.data.zoom_level
       });
 
+      this.data.map_controls.forEach(control => {
+        this.map.addControl(this[control]);
+      });
+
       this.map.on("zoomend", e => {
         this.dirtyZoom = true;
         this.zoomLevel = Math.round(this.map.getZoom() * 100) / 100;
@@ -174,6 +190,13 @@ export default {
     setCenter() {
       const { lat, lng } = this.center;
       this.centerMarker.setLngLat([lng, lat]);
+    },
+
+    setMapControls(data) {
+      // Currently no way to remove existing controls from the map - calling removeControl() errors
+      // if an instance isn't on the map nad there is no way to 'get' the current controls
+      // https://github.com/mapbox/mapbox-gl-js/issues/7682
+      return;
     },
 
     setMapStyles(styles) {

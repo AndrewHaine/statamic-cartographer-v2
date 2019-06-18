@@ -36,8 +36,10 @@ class CartographerTags extends Tags
 			'api_key' => $data['api_key'],
 			'center' => $data['center'],
 			'id' => $data['id'],
+			'mapbox_access_token' => $data['mapbox_access_token'],
 			'markers' => $data['markers'],
-			'metadata' => [
+			'options' => [
+				'controls' => $data['controls'],
 				'map_type_id' => $data['map_type_id'],
 				'styles' => $data['custom_styles'],
 				'zoom' => $data['zoom'],
@@ -91,6 +93,7 @@ class CartographerTags extends Tags
 			$custom_styles = $map_data->get('map_styles', "");
 		}
 		$markers = $map_data->get('markers', []);
+		$controls = $map_data->get('map_controls', ['zoomControl']);
 		$map_type_id = $map_data->get('map_type_id');
 		$zoom_level = $map_data->get('zoom_level');
 
@@ -105,6 +108,7 @@ class CartographerTags extends Tags
 			'api_key',
 			'center',
 			'classes',
+			'controls',
 			'custom_styles',
 			'id',
 			'gmaps_script',

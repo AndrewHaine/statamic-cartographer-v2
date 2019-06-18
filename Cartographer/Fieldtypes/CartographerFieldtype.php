@@ -40,6 +40,7 @@ class CartographerFieldtype extends Fieldtype
 
 	public function processGoogleMapsFieldDefaults($data = []) {
 		$data['map_type_id'] = array_get($data, 'map_type_id', 'roadmap');
+		$data['map_controls'] = array_get($data, 'map_controls', ['mapTypeControl', 'zoomControl']);
 		$data['api_key'] = $this->getConfig('google_maps_api_key', '');
 		$data['search_enabled'] = $this->getConfigBool('google_maps_geocoding_enabled', false);
 		return $data;
@@ -47,6 +48,7 @@ class CartographerFieldtype extends Fieldtype
 
 	public function processMapboxFieldDefaults($data = []) {
 		$data['access_token'] = $this->getConfig('mapbox_access_token', '');
+		$data['map_controls'] = array_get($data, 'map_controls', []);
 		$data['map_styles'] = array_get($data, 'map_styles', 'mapbox://styles/mapbox/streets-v11');
 		$data['search_enabled'] = true; // Always on!
 		return $data;

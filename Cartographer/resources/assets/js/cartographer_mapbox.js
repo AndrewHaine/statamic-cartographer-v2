@@ -17,15 +17,24 @@ function initMapbox() {
             style: data.styles,
             center: [data.center.lng, data.center.lat],
             zoom: data.zoom
-        })
+        });
 
-        for (var i = 0; i < data.markers.length; i++) {
-            var marker = data.markers[i];
+        var controlsMap = {
+            fullscreenControl: new mapboxgl.FullscreenControl(),
+            navigationControl: new mapboxgl.NavigationControl(),
+            scaleControl: new mapboxgl.ScaleControl()
+        }
+
+        data.controls.forEach(control => {
+            map.addControl(controlsMap[control]);
+        });
+
+        data.markers.forEach(marker => {
             var markerObject = new mapboxgl.Marker({
                 color: marker.color
             });
             markerObject.setLngLat([marker.position.lng, marker.position.lat]).addTo(map);
-        }
+        });
     }
 
     var cssLink = document.createElement('link');

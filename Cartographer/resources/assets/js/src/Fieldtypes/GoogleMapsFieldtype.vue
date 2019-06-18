@@ -47,6 +47,10 @@ export default {
   watch: {
     "data.map_styles": function(val) {
       this.setMapStyles(val);
+    },
+
+    "data.map_controls": function(val) {
+      this.setMapControls(val);
     }
   },
 
@@ -114,13 +118,16 @@ export default {
     },
 
     initMap() {
-      this.map = new google.maps.Map(this.$els.mapContainer, {
+      const mapOptions = {
         center: this.data.center,
-        fullscreenControl: false,
+        disableDefaultUI: true,
         mapTypeId: this.data.map_type_id,
-        streetViewControl: false,
         zoom: this.data.zoom_level
-      });
+      };
+
+      this.data.map_controls.forEach(control => (mapOptions[control] = true));
+
+      this.map = new google.maps.Map(this.$els.mapContainer, mapOptions);
 
       if (this.data.map_styles) {
         try {
@@ -200,6 +207,18 @@ export default {
         default:
           break;
       }
+    },
+
+    setMapControls(data) {
+      let controls = {
+        fullscreenControl: false,
+        rotateControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        zoomControl: false
+      };
+      data.forEach(control => (controls[control] = true));
+      this.map.setOptions(controls);
     },
 
     setMapStyles(stylesRaw) {

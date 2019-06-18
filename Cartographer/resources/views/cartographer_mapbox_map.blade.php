@@ -2,6 +2,7 @@
 	<?php
 		$data = [
 			"center" => $center,
+			"controls" => $controls,
 			"id" => $id,
 			"styles" => $custom_styles,
 			"markers" => $markers,

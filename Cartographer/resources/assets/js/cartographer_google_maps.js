@@ -9,13 +9,18 @@ function initGmaps () {
     }
 
     function renderCartographerGoogleMap(data) {
-        var map = new google.maps.Map(document.getElementById(data.id), {
+        var mapOptions = {
             center: data.center,
-            mapTypeId: data.map_type_id,
+            disableDefaultUI: true,
             icon: data.icon,
+            mapTypeId: data.map_type_id,
             styles: data.custom_styles || [],
             zoom: data.zoom
+        };
+        data.controls.forEach(function(control) {
+            mapOptions[control] = true
         });
+        var map = new google.maps.Map(document.getElementById(data.id), mapOptions);
 
         for (var i = 0; i < data.markers.length; i++) {
             var marker = data.markers[i];

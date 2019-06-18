@@ -3,6 +3,7 @@
 		$data = [
 			"center" => $center,
 			"id" => $id,
+			"controls" => $controls,
 			"custom_styles" => $custom_styles,
 			"map_type_id" => $map_type_id,
 			"markers" => $markers,
