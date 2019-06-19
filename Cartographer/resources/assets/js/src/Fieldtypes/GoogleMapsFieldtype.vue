@@ -17,7 +17,7 @@
         @set-center="setCenter"
       ></cartographer-control-panel>
       <div class="cartographer-field__map" v-el:map-container></div>
-      <cartographer-advanced-box :data.sync="data"></cartographer-advanced-box>
+      <cartographer-advanced-box :data.sync="data" :name="name"></cartographer-advanced-box>
     </section>
     <small v-else class="help-block my-1">
       <p>
@@ -212,7 +212,7 @@ export default {
     setMapControls(data) {
       let controls = {
         fullscreenControl: false,
-        rotateControl: false,
+        mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
         zoomControl: false

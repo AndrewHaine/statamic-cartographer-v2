@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component v-bind:is="mapsComponent" :data.sync="data"></component>
+    <component v-bind:is="mapsComponent" :data.sync="data" :name="name" :config="config"></component>
   </div>
 </template>
 

@@ -13,7 +13,7 @@
         @set-center="setCenter"
       ></cartographer-control-panel>
       <div class="cartographer-field__map" v-el:map-container></div>
-      <cartographer-advanced-box :data.sync="data"></cartographer-advanced-box>
+      <cartographer-advanced-box :data.sync="data" :name="name"></cartographer-advanced-box>
       <cartographer-mapbox-markers
         v-if="data.markers.length"
         :data.sync="data"

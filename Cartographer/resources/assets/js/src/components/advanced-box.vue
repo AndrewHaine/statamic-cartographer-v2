@@ -61,7 +61,7 @@
           <checkboxes-fieldtype
             :data.sync="data['map_controls']"
             :config="googleControlsCheckboxConfig"
-            name="map_controls"
+            :name="controlsFieldname"
           ></checkboxes-fieldtype>
         </div>
       </div>
@@ -74,7 +74,7 @@ import mapboxControlsCheckboxConfig from "../config/mapbox-controls-checkboxes";
 import mapboxStylesRadioConfig from "../config/mapbox-styles-radio";
 
 export default {
-  props: ["data"],
+  props: ["data", "name"],
 
   data() {
     return {
@@ -83,6 +83,12 @@ export default {
       mapboxControlsCheckboxConfig,
       mapboxStylesRadioConfig
     };
+  },
+
+  computed: {
+    controlsFieldname() {
+      return this.name + "_map_controls";
+    }
   },
 
   methods: {
