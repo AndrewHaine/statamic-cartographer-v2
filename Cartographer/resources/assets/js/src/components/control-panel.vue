@@ -45,7 +45,7 @@
     </div>
     <cartographer-marker-editor
       :data.sync="data"
-      :is-open="markerEditorOpen"
+      :is-open="selectedMarker && markerEditorOpen"
       :marker-index="selectedMarkerIndex"
       @marker-attribute-changed="markerAttributeChanged"
       v-if="selectedMarkerIndex >= 0"
