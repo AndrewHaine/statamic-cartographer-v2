@@ -8,11 +8,12 @@ class CartographerFieldtype extends Fieldtype
 {
 	public $category = ['special'];
 
+	public $default_center = [ "lat" => 52.6318051, "lng" => 1.296734 ];
+
 	public function blank()
 	{
 
 		$data = [
-			'center' => [ "lat" => 52.6318051, "lng" => 1.296734 ],
 			'markers' => [],
 			'zoom_level' => 4,
 		];
@@ -22,7 +23,11 @@ class CartographerFieldtype extends Fieldtype
 
 	public function preProcess($data)
 	{
-		$mode = $this->getFieldConfig('mode') ?: 'google';
+		$mode = $this->getFieldConfig('mode', 'google');
+
+		$config_center = $this->getFieldConfig('default_center');
+		$default_center = empty($config_center) ? $this->default_center : ['lat' => (float)$config_center['lat'], 'lng' => (float)$config_center['lng']];
+		$data['center'] = array_get($data, 'center', $default_center);
 
 		if ($mode === 'mapbox') {
 			$data = $this->processMapboxFieldDefaults($data);
