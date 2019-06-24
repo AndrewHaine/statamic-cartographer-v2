@@ -137,7 +137,9 @@ export default {
       });
 
       this.data.map_controls.forEach(control => {
-        this.map.addControl(this[control]);
+        if (this[control]) {
+          this.map.addControl(this[control]);
+        }
       });
 
       this.map.on("zoomend", e => {
