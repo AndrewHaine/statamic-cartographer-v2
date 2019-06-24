@@ -30,10 +30,10 @@ export default {
       let markerData = {
         id: uuid(),
         position: this.center,
+        icon: null
       };
 
       if(mode === 'google') {
-        markerData.icon = null;
         markerData.label = null;
       }
 

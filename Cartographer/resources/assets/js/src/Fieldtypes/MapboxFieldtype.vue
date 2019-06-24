@@ -20,6 +20,7 @@
         :get-marker-index="getMarkerIndex"
         :marker-objects="markerObjects"
         @marker-color-changed="updateMarkerColor"
+        @marker-icon-changed="updateMarkerIcon"
         @marker-position-changed="updateMarkerPosition"
         @remove-marker="removeMarker"
       ></cartographer-mapbox-markers>
@@ -75,12 +76,23 @@ export default {
 
       if (isNew) this.data.markers.push(markerData);
 
-      const { id, position, color } = markerData;
+      const { id, position, color, icon } = markerData;
       const { lat, lng } = position;
-      const newMarker = new mapboxgl.Marker({
+
+      const markerOptions = {
         color,
         draggable: true
-      });
+      };
+
+      if (icon) {
+        const iconEl = document.createElement("div");
+        iconEl.classList.add("cartographer-mapbox-marker");
+        iconEl.style.backgroundImage = `url('${icon}')`;
+        markerOptions["element"] = iconEl;
+      }
+
+      const newMarker = new mapboxgl.Marker(markerOptions);
+
       newMarker.id = id;
       newMarker.setLngLat([lng, lat]).addTo(this.map);
 
@@ -214,6 +226,11 @@ export default {
       this.data.markers[markerIndex].color = color;
     },
 
+    updateMarkerIcon(markerId, icon) {
+      const markerIndex = this.getMarkerIndex(markerId);
+      this.data.markers[markerIndex].icon = icon;
+    },
+
     updateMarkerPosition(markerId, lngLat) {
       const marker = this.getMarkerById(markerId);
       marker.setLngLat(lngLat);
@@ -221,3 +238,13 @@ export default {
   }
 };
 </script>
+<style>
+.cartographer-mapbox-marker {
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+</style>
