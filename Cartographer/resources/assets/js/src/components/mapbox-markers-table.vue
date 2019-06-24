@@ -5,38 +5,44 @@
       <thead>
         <th>Marker ID</th>
         <th>Position</th>
-        <th>Color</th>
+        <th>Style</th>
         <th>Actions</th>
       </thead>
       <tbody>
         <tr v-for="marker in data.markers">
           <td>{{ marker.id.split('-')[0] }}</td>
           <td>
-            <div class="flex items-center my-1">
-              <label class="block mr-2">Lat:</label>
-              <input
-                @change="updateMarkerPosition($event, marker.id, 'lat')"
-                :value="data.markers[getMarkerIndex(marker.id)].position.lat"
-                type="number"
-                class="flex-grow"
-              >
-            </div>
-            <div class="flex items-center my-1">
-              <label class="block mr-2">Lng:</label>
-              <input
-                @change="updateMarkerPosition($event, marker.id, 'lng')"
-                :value="data.markers[getMarkerIndex(marker.id)].position.lng"
-                type="number"
-                class="flex-grow"
-              >
-            </div>
+            <label class="block mr-2">Lat:</label>
+            <input
+              @change="updateMarkerPosition($event, marker.id, 'lat')"
+              :value="data.markers[getMarkerIndex(marker.id)].position.lat"
+              type="number"
+              class="w-full mb-1"
+            >
+            <label class="block mr-2">Lng:</label>
+            <input
+              @change="updateMarkerPosition($event, marker.id, 'lng')"
+              :value="data.markers[getMarkerIndex(marker.id)].position.lng"
+              type="number"
+              class="w-full"
+            >
           </td>
           <td>
+            <label class="block mr-2">Icon:</label>
+            <input
+              @change="setMarkerIcon($event, marker.id)"
+              :value="data.markers[getMarkerIndex(marker.id)].icon"
+              placeholder="..."
+              type="text"
+              class="w-full mb-1"
+            >
+            <label class="block mr-2">Color:</label>
             <input
               @change="setMarkerColor($event, marker.id)"
               :value="data.markers[getMarkerIndex(marker.id)].color"
               placeholder="#3FB1CE"
               type="text"
+              class="w-full"
             >
           </td>
           <td>
@@ -68,6 +74,11 @@ export default {
     setMarkerColor(e, markerId) {
       const color = e.target.value;
       this.$emit("marker-color-changed", markerId, color);
+    },
+
+    setMarkerIcon(e, markerId) {
+      const color = e.target.value;
+      this.$emit("marker-icon-changed", markerId, color);
     }
   }
 };
