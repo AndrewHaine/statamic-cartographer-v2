@@ -26,7 +26,9 @@ function initMapbox() {
         }
 
         data.controls.forEach(control => {
-            map.addControl(controlsMap[control]);
+            if (controlsMap[control]) {
+                map.addControl(controlsMap[control]);
+            }
         });
 
         data.markers.forEach(marker => {
