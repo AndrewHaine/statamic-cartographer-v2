@@ -1,5 +1,3 @@
-# Cartographer Documentation
-
 ## Installation
 
 Once you have a license for the addon, download the addon files from the Marketplace. The 'Cartographer' directory should be placed in you site/addons folder.
@@ -11,6 +9,8 @@ _Plese note:_ For google maps geocoding to work you will need to enable the Geoc
 ## Usage
 
 Add the Cartographer fieldtype to any of your fieldsets as you would any other field, you may toggle between using Google Maps or Mapbox in the 'Extras' tab when editing the field. The data is standardised on the backend so you may switch between the two at your own leisure.
+
+Additionally, you may set the coordinates of the default center on a per-field basis through the 'Extras' tab, these coordinates will be where the map center is when the map loads before any data has been saved.
 
 ### A brief overview
 
