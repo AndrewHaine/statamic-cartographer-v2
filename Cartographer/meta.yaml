@@ -14,3 +14,9 @@ fieldtype_fields:
     options:
       google: Google Maps
       mapbox: Mapbox
+  default_center:
+    type: array
+    width: 50
+    keys:
+      lat: Lat
+      lng: Lng

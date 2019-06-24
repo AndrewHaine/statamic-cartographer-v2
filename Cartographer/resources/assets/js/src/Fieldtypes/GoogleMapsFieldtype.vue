@@ -89,7 +89,7 @@ export default {
       this.centerMarker = new google.maps.Marker({
         draggable: true,
         map: this.map,
-        position: this.data.center,
+        position: this.map.getCenter(),
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
           scale: 10,
