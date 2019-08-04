@@ -2,6 +2,8 @@
 
 namespace Statamic\Addons\Cartographer;
 
+use Statamic\API\Collection;
+use Statamic\API\Entry;
 use Statamic\Extend\Tags;
 use Illuminate\Support\Facades\Log;
 
@@ -14,14 +16,7 @@ class CartographerTags extends Tags
 	 */
 	public function index()
 	{
-		if(!$data = $this->get_data()) return;
-		switch($data['mode']) {
-			case 'mapbox':
-				return $this->view('cartographer_mapbox_map', $data);
-			case 'google':
-			default:
-				return $this->view('cartographer_google_map', $data);
-		}
+		return $this->renderMapForMode($this->get_data());
 	}
 
 	/**
@@ -49,6 +44,72 @@ class CartographerTags extends Tags
 	}
 
 	/**
+	 * Collection tag - combine the marker data from the entries in a collection
+	 *
+	 * @return string
+	 */
+	public function collection()
+	{
+		if ($collection_params = $this->getList(['from', 'folder', 'use'])) {
+
+			$field = $this->getParam('field');
+			if(!$field) {
+				return false;
+			}
+
+			if(!Collection::whereHandle($collection_params[0])) {
+				$this->parseNoResults();
+			};
+
+			$markers = collect($this->getCollection($collection_params[0]))->flatMap(function($entry) use ($field) {
+				$map = $entry->get($field);
+				return $map ? $map['markers'] : null;
+			})->values();
+
+			$addon_meta = $this->getAddonMeta();
+
+			$api_key = $addon_meta['api_key'];
+			$mapbox_access_token = $addon_meta['mapbox_access_token'];
+			$gmaps_script = $addon_meta['gmaps_script'];
+			$mapbox_script = $addon_meta['mapbox_script'];
+
+			$data = [];
+
+			$data['markers'] = $markers;
+			$data['api_key'] = $api_key;
+			$data['mapbox_access_token'] = $mapbox_access_token;
+			$data['gmaps_script'] = $gmaps_script;
+			$data['mapbox_script'] = $mapbox_script;
+			$data['autocenter'] = true;
+			$data['mode'] = $this->getParam('mode');
+			$data['id'] = uniqid('cartographer_field_');
+			$data['classes'] = $this->getParam('classes', '');
+			$data['controls'] = ['zoomControl'];
+			$data['custom_styles'] = null;
+			$data['height'] = $this->getParam('height', '500px');
+			$data['width'] = $this->getParam('width', 'auto');
+			$data['zoom'] = $this->getParamInt('zoom', 14);
+
+			if($data['mode'] === 'mapbox') {
+				$data['custom_styles'] = 'mapbox://styles/mapbox/streets-v11';
+			} else {
+				$data['custom_styles'] = null;
+				$data['map_type_id'] = $this->getParam('map_type_id', 'roadmap');
+			}
+
+			return $this->renderMapForMode($data);
+
+		}
+
+		return $this->parseNoResults();
+	}
+
+	protected function getCollection($collectionHandle)
+	{
+		return Entry::whereCollection($collectionHandle);
+	}
+
+	/**
 	 * Return a dump of all the data in the field
 	 *
 	 * @return string
@@ -57,6 +118,25 @@ class CartographerTags extends Tags
 	{
 		if(!$data = $this->get_data(true)) return;
 		return json_encode($data);
+	}
+
+	/**
+	 * Return a populated template for a map mode
+	 *
+	 * @param array $data
+	 *
+	 * @return string
+	 */
+	protected function renderMapForMode($data = [])
+	{
+		if(!$data) return;
+		switch($data['mode']) {
+			case 'mapbox':
+				return $this->view('cartographer_mapbox_map', $data);
+			case 'google':
+			default:
+				return $this->view('cartographer_google_map', $data);
+		}
 	}
 
 	/**
@@ -75,17 +155,18 @@ class CartographerTags extends Tags
 		}
 
 		$map_data = collect($ctx[$fieldName]);
+		$addon_meta = $this->getAddonMeta();
 
-		$api_key = $this->getConfig('google_maps_api_key', '');
-		$mapbox_access_token = $this->getConfig('mapbox_access_token', '');
-		$gmaps_script = $this->js->url('cartographer_google_maps');
-		$mapbox_script = $this->js->url('cartographer_mapbox');
+		$api_key = $addon_meta['api_key'];
+		$mapbox_access_token = $addon_meta['mapbox_access_token'];
+		$gmaps_script = $addon_meta['gmaps_script'];
+		$mapbox_script = $addon_meta['mapbox_script'];
 
 		if($map_only) {
 			return $map_data->merge(['api_key' => $api_key])->all();
 		}
 
-		$center = $map_data->get('center');
+		$center = $map_data->get('center', []);
 		$mode = $map_data->get('mode', 'google');
 		if($mode === 'google') {
 			$custom_styles = json_decode($map_data->get('map_styles', ""));
@@ -120,6 +201,26 @@ class CartographerTags extends Tags
 			'mode',
 			'width',
 			'zoom'
+		);
+	}
+
+	/**
+	 * Return the addon config data
+	 *
+	 * @return array
+	 */
+	private function getAddonMeta()
+	{
+		$api_key = $this->getConfig('google_maps_api_key', '');
+		$mapbox_access_token = $this->getConfig('mapbox_access_token', '');
+		$gmaps_script = $this->js->url('cartographer_google_maps');
+		$mapbox_script = $this->js->url('cartographer_mapbox');
+
+		return compact(
+			'api_key',
+			'mapbox_access_token',
+			'gmaps_script',
+			'mapbox_script'
 		);
 	}
 }

@@ -10,17 +10,22 @@ function initGmaps () {
 
     function renderCartographerGoogleMap(data) {
         var mapOptions = {
-            center: data.center,
             disableDefaultUI: true,
             icon: data.icon,
             mapTypeId: data.map_type_id,
             styles: data.custom_styles || [],
             zoom: data.zoom
         };
+
+        if(!data.autocenter) {
+            mapOptions.center = data.center;
+        }
+
         data.controls.forEach(function(control) {
             mapOptions[control] = true
         });
         var map = new google.maps.Map(document.getElementById(data.id), mapOptions);
+        var mapBounds = new google.maps.LatLngBounds();
 
         for (var i = 0; i < data.markers.length; i++) {
             var marker = data.markers[i];
@@ -30,7 +35,12 @@ function initGmaps () {
                 icon: marker.icon,
                 label: marker.label,
                 position: new google.maps.LatLng(marker.position)
-            })
+            });
+            mapBounds.extend(new google.maps.LatLng(marker.position));
+        }
+
+        if(data.autocenter) {
+            map.fitBounds(mapBounds);
         }
     }
 
