@@ -1,1 +1,3864 @@
-!function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:n})},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="/",r(r.s=13)}([function(e,t,r){"use strict";var n=r(5),o=r(34),a=Object.prototype.toString;function s(e){return"[object Array]"===a.call(e)}function i(e){return null!==e&&"object"==typeof e}function c(e){return"[object Function]"===a.call(e)}function l(e,t){if(null!==e&&void 0!==e)if("object"!=typeof e&&(e=[e]),s(e))for(var r=0,n=e.length;r<n;r++)t.call(null,e[r],r,e);else for(var o in e)Object.prototype.hasOwnProperty.call(e,o)&&t.call(null,e[o],o,e)}e.exports={isArray:s,isArrayBuffer:function(e){return"[object ArrayBuffer]"===a.call(e)},isBuffer:o,isFormData:function(e){return"undefined"!=typeof FormData&&e instanceof FormData},isArrayBufferView:function(e){return"undefined"!=typeof ArrayBuffer&&ArrayBuffer.isView?ArrayBuffer.isView(e):e&&e.buffer&&e.buffer instanceof ArrayBuffer},isString:function(e){return"string"==typeof e},isNumber:function(e){return"number"==typeof e},isObject:i,isUndefined:function(e){return void 0===e},isDate:function(e){return"[object Date]"===a.call(e)},isFile:function(e){return"[object File]"===a.call(e)},isBlob:function(e){return"[object Blob]"===a.call(e)},isFunction:c,isStream:function(e){return i(e)&&c(e.pipe)},isURLSearchParams:function(e){return"undefined"!=typeof URLSearchParams&&e instanceof URLSearchParams},isStandardBrowserEnv:function(){return("undefined"==typeof navigator||"ReactNative"!==navigator.product&&"NativeScript"!==navigator.product&&"NS"!==navigator.product)&&"undefined"!=typeof window&&"undefined"!=typeof document},forEach:l,merge:function e(){var t={};function r(r,n){"object"==typeof t[n]&&"object"==typeof r?t[n]=e(t[n],r):t[n]=r}for(var n=0,o=arguments.length;n<o;n++)l(arguments[n],r);return t},deepMerge:function e(){var t={};function r(r,n){"object"==typeof t[n]&&"object"==typeof r?t[n]=e(t[n],r):t[n]="object"==typeof r?e({},r):r}for(var n=0,o=arguments.length;n<o;n++)l(arguments[n],r);return t},extend:function(e,t,r){return l(t,function(t,o){e[o]=r&&"function"==typeof t?n(t,r):t}),e},trim:function(e){return e.replace(/^\s*/,"").replace(/\s*$/,"")}}},function(e,t,r){e.exports=r(33)},function(e,t,r){"use strict";var n=r(50),o=r.n(n),a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e};t.a={attached:function(){this.hasKey&&(this.setMode(),this.initMap(),this.addCenterMarker(),this.populateMarkers(this.data.markers))},data:function(){return{busy:!1,center:{},centerMarker:{},dirtyCenter:!1,dirtyZoom:!1,hasKey:!1,map:null,markerObjects:[],selectedMarker:null,selectedMarkerIndex:0,zoomLevel:4}},methods:{generateNewMarker:function(e){var t={id:o()(),position:this.center};return"google"===e&&(t.icon=null,t.label=null),"mapbox"===e&&(t.color=null),t},getMarkerById:function(e){return this.markerObjects.filter(function(t){return t.id===e})[0]},getMarkerIndex:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null;return e?this.data.markers.findIndex(function(t){return t.id===e}):-1},getReplicatorPreviewText:function(){var e=this.data.center;return"Center: Lat: "+e.lat+", Lng: "+e.lng},populateMarkers:function(e){var t=this;e.forEach(function(e){return t.addMarker(!1,e)})},removeMarker:function(e){this.selectedMarker=null,this.updateMarker(e,null,!0);var t=this.getMarkerById(e);this.removeMarkerObjectFromMap(t)},updateMarker:function(e,t){var r=arguments.length>2&&void 0!==arguments[2]&&arguments[2],n=this.getMarkerIndex(e),o=this.data.markers;o[n]=a({},o[n],t),r&&o.splice(n,1),this.data=a({},this.data,{markers:o})}}}},function(e,t){e.exports=function(e){var t=[];return t.toString=function(){return this.map(function(t){var r=function(e,t){var r=e[1]||"",n=e[3];if(!n)return r;if(t&&"function"==typeof btoa){var o=(s=n,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(s))))+" */"),a=n.sources.map(function(e){return"/*# sourceURL="+n.sourceRoot+e+" */"});return[r].concat(a).concat([o]).join("\n")}var s;return[r].join("\n")}(t,e);return t[2]?"@media "+t[2]+"{"+r+"}":r}).join("")},t.i=function(e,r){"string"==typeof e&&(e=[[null,e,""]]);for(var n={},o=0;o<this.length;o++){var a=this[o][0];"number"==typeof a&&(n[a]=!0)}for(o=0;o<e.length;o++){var s=e[o];"number"==typeof s[0]&&n[s[0]]||(r&&!s[2]?s[2]=r:r&&(s[2]="("+s[2]+") and ("+r+")"),t.push(s))}},t}},function(e,t,r){"use strict";function n(e,t){for(var r=[],n={},o=0;o<t.length;o++){var a=t[o],s=a[0],i={id:e+":"+o,css:a[1],media:a[2],sourceMap:a[3]};n[s]?n[s].parts.push(i):r.push(n[s]={id:s,parts:[i]})}return r}Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e,t,r,o){l=r,d=o||{};var s=n(e,t);return m(s),function(t){for(var r=[],o=0;o<s.length;o++){var i=s[o];(c=a[i.id]).refs--,r.push(c)}for(t?m(s=n(e,t)):s=[],o=0;o<r.length;o++){var c;if(0===(c=r[o]).refs){for(var l=0;l<c.parts.length;l++)c.parts[l]();delete a[c.id]}}}};var o="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!o)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var a={},s=o&&(document.head||document.getElementsByTagName("head")[0]),i=null,c=0,l=!1,u=function(){},d=null,p="data-vue-ssr-id",f="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());function m(e){for(var t=0;t<e.length;t++){var r=e[t],n=a[r.id];if(n){n.refs++;for(var o=0;o<n.parts.length;o++)n.parts[o](r.parts[o]);for(;o<r.parts.length;o++)n.parts.push(v(r.parts[o]));n.parts.length>r.parts.length&&(n.parts.length=r.parts.length)}else{var s=[];for(o=0;o<r.parts.length;o++)s.push(v(r.parts[o]));a[r.id]={id:r.id,refs:1,parts:s}}}}function h(){var e=document.createElement("style");return e.type="text/css",s.appendChild(e),e}function v(e){var t,r,n=document.querySelector("style["+p+'~="'+e.id+'"]');if(n){if(l)return u;n.parentNode.removeChild(n)}if(f){var o=c++;n=i||(i=h()),t=b.bind(null,n,o,!1),r=b.bind(null,n,o,!0)}else n=h(),t=function(e,t){var r=t.css,n=t.media,o=t.sourceMap;n&&e.setAttribute("media",n);d.ssrId&&e.setAttribute(p,t.id);o&&(r+="\n/*# sourceURL="+o.sources[0]+" */",r+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */");if(e.styleSheet)e.styleSheet.cssText=r;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(r))}}.bind(null,n),r=function(){n.parentNode.removeChild(n)};return t(e),function(n){if(n){if(n.css===e.css&&n.media===e.media&&n.sourceMap===e.sourceMap)return;t(e=n)}else r()}}var g,y=(g=[],function(e,t){return g[e]=t,g.filter(Boolean).join("\n")});function b(e,t,r,n){var o=r?"":n.css;if(e.styleSheet)e.styleSheet.cssText=y(t,o);else{var a=document.createTextNode(o),s=e.childNodes;s[t]&&e.removeChild(s[t]),s.length?e.insertBefore(a,s[t]):e.appendChild(a)}}},function(e,t,r){"use strict";e.exports=function(e,t){return function(){for(var r=new Array(arguments.length),n=0;n<r.length;n++)r[n]=arguments[n];return e.apply(t,r)}}},function(e,t,r){"use strict";var n=r(0);function o(e){return encodeURIComponent(e).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}e.exports=function(e,t,r){if(!t)return e;var a;if(r)a=r(t);else if(n.isURLSearchParams(t))a=t.toString();else{var s=[];n.forEach(t,function(e,t){null!==e&&void 0!==e&&(n.isArray(e)?t+="[]":e=[e],n.forEach(e,function(e){n.isDate(e)?e=e.toISOString():n.isObject(e)&&(e=JSON.stringify(e)),s.push(o(t)+"="+o(e))}))}),a=s.join("&")}if(a){var i=e.indexOf("#");-1!==i&&(e=e.slice(0,i)),e+=(-1===e.indexOf("?")?"?":"&")+a}return e}},function(e,t,r){"use strict";e.exports=function(e){return!(!e||!e.__CANCEL__)}},function(e,t,r){"use strict";(function(t){var n=r(0),o=r(40),a={"Content-Type":"application/x-www-form-urlencoded"};function s(e,t){!n.isUndefined(e)&&n.isUndefined(e["Content-Type"])&&(e["Content-Type"]=t)}var i,c={adapter:(void 0!==t&&"[object process]"===Object.prototype.toString.call(t)?i=r(9):"undefined"!=typeof XMLHttpRequest&&(i=r(9)),i),transformRequest:[function(e,t){return o(t,"Accept"),o(t,"Content-Type"),n.isFormData(e)||n.isArrayBuffer(e)||n.isBuffer(e)||n.isStream(e)||n.isFile(e)||n.isBlob(e)?e:n.isArrayBufferView(e)?e.buffer:n.isURLSearchParams(e)?(s(t,"application/x-www-form-urlencoded;charset=utf-8"),e.toString()):n.isObject(e)?(s(t,"application/json;charset=utf-8"),JSON.stringify(e)):e}],transformResponse:[function(e){if("string"==typeof e)try{e=JSON.parse(e)}catch(e){}return e}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,validateStatus:function(e){return e>=200&&e<300}};c.headers={common:{Accept:"application/json, text/plain, */*"}},n.forEach(["delete","get","head"],function(e){c.headers[e]={}}),n.forEach(["post","put","patch"],function(e){c.headers[e]=n.merge(a)}),e.exports=c}).call(t,r(39))},function(e,t,r){"use strict";var n=r(0),o=r(41),a=r(6),s=r(43),i=r(44),c=r(10);e.exports=function(e){return new Promise(function(t,l){var u=e.data,d=e.headers;n.isFormData(u)&&delete d["Content-Type"];var p=new XMLHttpRequest;if(e.auth){var f=e.auth.username||"",m=e.auth.password||"";d.Authorization="Basic "+btoa(f+":"+m)}if(p.open(e.method.toUpperCase(),a(e.url,e.params,e.paramsSerializer),!0),p.timeout=e.timeout,p.onreadystatechange=function(){if(p&&4===p.readyState&&(0!==p.status||p.responseURL&&0===p.responseURL.indexOf("file:"))){var r="getAllResponseHeaders"in p?s(p.getAllResponseHeaders()):null,n={data:e.responseType&&"text"!==e.responseType?p.response:p.responseText,status:p.status,statusText:p.statusText,headers:r,config:e,request:p};o(t,l,n),p=null}},p.onabort=function(){p&&(l(c("Request aborted",e,"ECONNABORTED",p)),p=null)},p.onerror=function(){l(c("Network Error",e,null,p)),p=null},p.ontimeout=function(){l(c("timeout of "+e.timeout+"ms exceeded",e,"ECONNABORTED",p)),p=null},n.isStandardBrowserEnv()){var h=r(45),v=(e.withCredentials||i(e.url))&&e.xsrfCookieName?h.read(e.xsrfCookieName):void 0;v&&(d[e.xsrfHeaderName]=v)}if("setRequestHeader"in p&&n.forEach(d,function(e,t){void 0===u&&"content-type"===t.toLowerCase()?delete d[t]:p.setRequestHeader(t,e)}),e.withCredentials&&(p.withCredentials=!0),e.responseType)try{p.responseType=e.responseType}catch(t){if("json"!==e.responseType)throw t}"function"==typeof e.onDownloadProgress&&p.addEventListener("progress",e.onDownloadProgress),"function"==typeof e.onUploadProgress&&p.upload&&p.upload.addEventListener("progress",e.onUploadProgress),e.cancelToken&&e.cancelToken.promise.then(function(e){p&&(p.abort(),l(e),p=null)}),void 0===u&&(u=null),p.send(u)})}},function(e,t,r){"use strict";var n=r(42);e.exports=function(e,t,r,o,a){var s=new Error(e);return n(s,t,r,o,a)}},function(e,t,r){"use strict";var n=r(0);e.exports=function(e,t){t=t||{};var r={};return n.forEach(["url","method","params","data"],function(e){void 0!==t[e]&&(r[e]=t[e])}),n.forEach(["headers","auth","proxy"],function(o){n.isObject(t[o])?r[o]=n.deepMerge(e[o],t[o]):void 0!==t[o]?r[o]=t[o]:n.isObject(e[o])?r[o]=n.deepMerge(e[o]):void 0!==e[o]&&(r[o]=e[o])}),n.forEach(["baseURL","transformRequest","transformResponse","paramsSerializer","timeout","withCredentials","adapter","responseType","xsrfCookieName","xsrfHeaderName","onUploadProgress","onDownloadProgress","maxContentLength","validateStatus","maxRedirects","httpAgent","httpsAgent","cancelToken","socketPath"],function(n){void 0!==t[n]?r[n]=t[n]:void 0!==e[n]&&(r[n]=e[n])}),r}},function(e,t,r){"use strict";function n(e){this.message=e}n.prototype.toString=function(){return"Cancel"+(this.message?": "+this.message:"")},n.prototype.__CANCEL__=!0,e.exports=n},function(e,t,r){e.exports=r(14)},function(e,t,r){Vue.component("cartographer-advanced-box",r(15)),Vue.component("cartographer-control-panel",r(20)),Vue.component("cartographer-marker-editor",r(23)),Vue.component("cartographer-mapbox-markers",r(26)),Vue.component("cartographer-google_maps-fieldtype",r(31)),Vue.component("cartographer-mapbox-fieldtype",r(54)),Vue.component("cartographer-fieldtype",r(57))},function(e,t,r){var n,o,a={};r(16),n=r(18),o=r(19),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){var n=r(17);"string"==typeof n&&(n=[[e.i,n,""]]),n.locals&&(e.exports=n.locals);(0,r(4).default)("3a0e02a6",n,!0,{})},function(e,t,r){(e.exports=r(3)(!1)).push([e.i,".inline-checkboxes .list-unstyled{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}.inline-checkboxes .list-unstyled li{margin-right:1rem}.inline-checkboxes .list-unstyled li label{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}",""])},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n={name:"map_controls",options:[{value:"fullscreenControl",text:"Fullscreen"},{value:"mapTypeControl",text:"Map Type"},{value:"scaleControl",text:"Scale"},{value:"streetViewControl",text:"Street View"},{value:"zoomControl",text:"Zoom"}]},o={name:"map_controls",options:[{value:"fullscreenControl",text:"Fullscreen"},{value:"navigationControl",text:"Navigation"},{value:"scaleControl",text:"Scale"}]},a={name:"map_styles",inline:!0,options:[{value:"mapbox://styles/mapbox/streets-v11",text:"Streets"},{value:"mapbox://styles/mapbox/light-v10",text:"Light"},{value:"mapbox://styles/mapbox/dark-v10",text:"Dark"},{value:"mapbox://styles/mapbox/outdoors-v11",text:"Outdoors"},{value:"mapbox://styles/mapbox/satellite-v9",text:"Satellite"}]};t.default={props:["data","name"],data:function(){return{isOpen:!1,googleControlsCheckboxConfig:n,mapboxControlsCheckboxConfig:o,mapboxStylesRadioConfig:a}},computed:{controlsFieldname:function(){return this.name+"_map_controls"}},methods:{toggleOpen:function(){this.isOpen=!this.isOpen}}}},function(e,t){e.exports=' <div> <div class="btn-group my-1 mr-1"> <a href=# class="btn btn-default" @click.prevent=toggleOpen> Advanced <i class="icon icon-plus icon-right"></i> </a> </div> <div v-if=isOpen class="card cartographer-field__advanced-panel"> <div v-if="data.mode == \'mapbox\'"> <div class=mb-1> <label class=block>Custom styles</label> <small class=help-block> Choose from the predefined styles below or copy the link to your custom style set, you can create your own styles using the <a href=https://studio.mapbox.com/styles target=_blank rel=noopener>styles studio</a>. </small> <div class="field-inner my-2"> <radio-fieldtype :data.sync="data[\'map_styles\']" :config=mapboxStylesRadioConfig name=map_styles></radio-fieldtype> </div> <input type=text class=w-full v-model=data.map_styles> </div> <div class="mt-2 inline-checkboxes"> <label class=block>Map controls</label> <small class=help-block>Set which UI controls show on this map</small> <checkboxes-fieldtype :data.sync="data[\'map_controls\']" :config=mapboxControlsCheckboxConfig name=map_controls></checkboxes-fieldtype> </div> </div> <div v-if="data.mode == \'google\'"> <div class=mb-1> <label class=block>Custom styles</label> <small class=help-block> These can be generated using <a href=https://snazzymaps.com/ target=_blank rel=noopener>SnazzyMaps</a>. </small> <textarea v-model=data.map_styles placeholder="Paste custom styles here." class=w-full rows=10></textarea> </div> <div class="mt-1 inline-checkboxes"> <label class=block>Map controls</label> <small class=help-block>Set which UI controls show on this map</small> <checkboxes-fieldtype :data.sync="data[\'map_controls\']" :config=googleControlsCheckboxConfig :name=controlsFieldname></checkboxes-fieldtype> </div> </div> </div> </div> '},function(e,t,r){var n,o,a={};n=r(21),o=r(22),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={props:["busy","center","data","dirtyCenter","dirtyZoom","selectedMarker","selectedMarkerIndex","zoomLevel"],data:function(){return{markerEditorOpen:!1}},methods:{addMarker:function(){this.$emit("add-marker")},markerAttributeChanged:function(e,t){this.$emit("marker-attribute-changed",e,t)},removeMarker:function(){this.$emit("remove-marker",this.selectedMarker)},requestGeocoder:function(e){this.$emit("request-geocoder",e.target.value)},setCenter:function(){this.$emit("set-center"),this.dirtyCenter=!1,this.data.center=this.center},setZoomLevel:function(){this.$emit("set-zoom-level"),this.dirtyZoom=!1,this.data.zoom_level=this.zoomLevel},toggleMarkerEditorOpen:function(){if(this.selectedMarkerIndex<0)return this.markerEditorOpen=!1;this.markerEditorOpen=!this.markerEditorOpen}}}},function(e,t){e.exports=' <div> <div class="cartographer-field__controls flex justify-between items-center"> <div class=cartograher-field__marker-controls> <div v-if="dirtyCenter || dirtyZoom" class="btn-group my-1 mr-1"> <a v-if=dirtyCenter href=# class="btn btn-primary" @click.prevent=setCenter>Set center</a> <a v-if=dirtyZoom href=# class="btn btn-primary" @click.prevent=setZoomLevel>Set zoom level ({{ zoomLevel }})</a> </div> <div v-if=!selectedMarker class="btn-group my-1 mr-2"> <a href=# class="btn btn-default" @click.prevent=addMarker> Marker <i class="icon icon-plus icon-right"></i> </a> </div> <div v-if=selectedMarker class="btn-group my-1 mr-2"> <a href=# class="btn btn-white" @click.prevent=toggleMarkerEditorOpen> <i class="icon icon-pencil icon-left"></i> Edit </a> <a href=# class="btn btn-danger" @click.prevent=removeMarker>Remove</a> </div> </div> <div v-if=data.search_enabled class="controls flex items-center lg:w-auto"> <div v-if=busy class="loading loading-basic"> <span class="icon icon-circular-graph animation-spin"></span> </div> <input type=text class="filter-control search w-full" placeholder="Search for a location" :disabled=busy @keyup.13=requestGeocoder> </div> </div> <cartographer-marker-editor :data.sync=data :is-open="selectedMarker && markerEditorOpen" :marker-index=selectedMarkerIndex @marker-attribute-changed=markerAttributeChanged v-if="selectedMarkerIndex >= 0"></cartographer-marker-editor> </div> '},function(e,t,r){var n,o,a={};n=r(24),o=r(25),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={props:["data","isOpen","markerIndex"],methods:{setAttribute:function(e,t){var r=e.target.value;this.data.markers[this.markerIndex][t]=r,this.$emit("marker-attribute-changed",t,r)}}}},function(e,t){e.exports=' <div v-if=isOpen class="my-2 card cartographer-field__marker-edit-box"> <label class="block uppercase">Edit marker</label> <div v-if="data.mode == \'google\'" class="w-full my-1"> <div class=field-inner> <label class=block>Icon</label> <div class=help-block>Paste the url of the marker icon image</div> <input @change="setAttribute($event, \'icon\')" :value=data.markers[markerIndex].icon type=text class="form-control type-text"> </div> </div> <div v-if="data.mode == \'google\'" class="w-1/4 my-1"> <div class=field-inner> <label class=block>Label</label> <div class=help-block>Set a marker label</div> <input @input="setAttribute($event, \'label\')" :value=data.markers[markerIndex].label type=text class="form-control type-text"> </div> </div> <div v-if="data.mode == \'mapbox\'" class="w-1/4 my-1"> <div class=field-inner> <label class=block>Color</label> <div class=help-block>Set the marker color. e.g. `#ffee00`.</div> <input @input="setAttribute($event, \'label\')" :value=data.markers[markerIndex].color type=text class="form-control type-text"> </div> </div> </div> '},function(e,t,r){var n,o,a={};r(27),n=r(29),o=r(30),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){var n=r(28);"string"==typeof n&&(n=[[e.i,n,""]]),n.locals&&(e.exports=n.locals);(0,r(4).default)("4f84cc9e",n,!0,{})},function(e,t,r){(e.exports=r(3)(!1)).push([e.i,".cartographer__mapbox-markers{max-width:750px}.cartographer__mapbox-marker-table{margin:10px 0}.cartographer__mapbox-marker-table tbody tr:hover{background-color:#f1f5f9}",""])},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={props:["data","getMarkerIndex"],methods:{removeMarker:function(e){this.$emit("remove-marker",e)},updateMarkerPosition:function(e,t,r){var n="lat"===r?"lng":"lat",o=this.data.markers[this.getMarkerIndex(t)].position[n],a=[e.target.value];a.splice("lat"===n?1:0,0,o),this.$emit("marker-position-changed",t,a)},setMarkerColor:function(e,t){var r=e.target.value;this.$emit("marker-color-changed",t,r)}}}},function(e,t){e.exports=' <div class="card my-3 cartographer__mapbox-markers"> <label class=block>Markers</label> <table class=cartographer__mapbox-marker-table> <thead> <th>Marker ID</th> <th>Position</th> <th>Color</th> <th>Actions</th> </thead> <tbody> <tr v-for="marker in data.markers"> <td>{{ marker.id.split(\'-\')[0] }}</td> <td> <div class="flex items-center my-1"> <label class="block mr-2">Lat:</label> <input @change="updateMarkerPosition($event, marker.id, \'lat\')" :value=data.markers[getMarkerIndex(marker.id)].position.lat type=number class=flex-grow> </div> <div class="flex items-center my-1"> <label class="block mr-2">Lng:</label> <input @change="updateMarkerPosition($event, marker.id, \'lng\')" :value=data.markers[getMarkerIndex(marker.id)].position.lng type=number class=flex-grow> </div> </td> <td> <input @change="setMarkerColor($event, marker.id)" :value=data.markers[getMarkerIndex(marker.id)].color placeholder=#3FB1CE type=text> </td> <td> <a href=# @click.prevent=removeMarker(marker.id)>Remove</a> </td> </tr> </tbody> </table> </div> '},function(e,t,r){var n,o,a={};n=r(32),o=r(53),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=r(1),o=r.n(n),a=r(2),s=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e};t.default={props:["data","config","name"],mixins:[a.a],created:function(){this.hasKey=!!this.data.api_key},watch:{"data.map_styles":function(e){this.setMapStyles(e)},"data.map_controls":function(e){this.setMapControls(e)}},methods:{addMarker:function(){var e=this,t=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;t&&(r=this.generateNewMarker()),t&&this.data.markers.push(r);var n=r,o=n.id,a=n.label,s=n.position,i=n.icon,c=new google.maps.Marker({animation:google.maps.Animation.DROP,draggable:!0,map:this.map,position:s,icon:i,id:o,label:a});["drag","dragend"].forEach(function(t){c.addListener(t,function(t){return e.handleMarkerDragged(t,o)})}),c.addListener("click",function(){return e.toggleSelectedMarker(o)}),this.markerObjects.push(c)},addCenterMarker:function(){var e=this;this.centerMarker=new google.maps.Marker({draggable:!0,map:this.map,position:this.map.getCenter(),icon:{path:google.maps.SymbolPath.CIRCLE,scale:10,strokeColor:"red"}}),["drag","dragend"].forEach(function(t){e.centerMarker.addListener(t,function(t){e.dirtyCenter=!1,e.handleMarkerDragged(t,"center",!0)})})},handleMarkerDragged:function(e,t){var r=arguments.length>2&&void 0!==arguments[2]&&arguments[2],n=[e.latLng.lat(),e.latLng.lng()],o=n[0],a=n[1];r?this.data=s({},this.data,{center:{lat:o,lng:a}}):this.updateMarker(t,{position:{lat:o,lng:a}})},initMap:function(){var e=this,t={center:this.data.center,disableDefaultUI:!0,mapTypeId:this.data.map_type_id,zoom:this.data.zoom_level};if(this.data.map_controls.forEach(function(e){return t[e]=!0}),this.map=new google.maps.Map(this.$els.mapContainer,t),this.data.map_styles)try{var r=JSON.parse(this.data.map_styles);this.setMapStyles(r)}catch(e){console.error("Failed to set initial styles: "+e)}this.center=this.map.getCenter().toJSON(),this.map.addListener("maptypeid_changed",function(){e.data.map_type_id=e.map.getMapTypeId()}),this.map.addListener("dragend",function(){e.dirtyCenter=!0,e.center=e.map.getCenter().toJSON()}),this.map.addListener("zoom_changed",function(){e.zoomLevel=e.map.getZoom(),e.dirtyZoom=!0})},removeMarkerObjectFromMap:function(e){e.setMap(null)},requestGeocodedLocation:function(e){var t=this;this.busy=!0;var r="https://maps.googleapis.com/maps/api/geocode/json?address="+encodeURI(e)+"&key="+this.data.api_key;o.a.get(r).then(function(e){if("OK"!==e.data.status)return swal({type:"error",title:"Location Search Failed",text:e.data.error_message||e.data.status,confirmButtonText:"OK",showCancelButton:!1});var r=e.data.results[0].geometry.location,n=r.lat,o=r.lng;t.center={lat:n,lng:o},t.map.panTo(t.center),t.map.setZoom(14),t.dirtyCenter=!0}).catch(function(e){return console.error(e)}).finally(function(){t.busy=!1})},setCenter:function(){this.centerMarker.setPosition(this.map.getCenter())},setMarkerAttribute:function(e,t){var r=this.getMarkerById(this.selectedMarker);switch(e){case"icon":r.setIcon(t);break;case"label":r.setLabel(t?String(t):"")}},setMapControls:function(e){var t={fullscreenControl:!1,mapTypeControl:!1,scaleControl:!1,streetViewControl:!1,zoomControl:!1};e.forEach(function(e){return t[e]=!0}),this.map.setOptions(t)},setMapStyles:function(e){if(!e)return this.map.setOptions({styles:[]});try{var t=JSON.parse(e);this.map.setOptions({styles:t})}catch(e){console.error("Failed to parse map styles: "+e)}},setMode:function(){this.data.mode="google"},toggleSelectedMarker:function(e){var t=this;this.selectedMarker=this.selectedMarker===e?null:e,this.selectedMarkerIndex=this.getMarkerIndex(this.selectedMarker),this.markerObjects.forEach(function(e){e.id===t.selectedMarker?e.setAnimation(google.maps.Animation.BOUNCE):e.setAnimation(null)})}}}},function(e,t,r){"use strict";var n=r(0),o=r(5),a=r(35),s=r(11);function i(e){var t=new a(e),r=o(a.prototype.request,t);return n.extend(r,a.prototype,t),n.extend(r,t),r}var c=i(r(8));c.Axios=a,c.create=function(e){return i(s(c.defaults,e))},c.Cancel=r(12),c.CancelToken=r(48),c.isCancel=r(7),c.all=function(e){return Promise.all(e)},c.spread=r(49),e.exports=c,e.exports.default=c},function(e,t){e.exports=function(e){return null!=e&&null!=e.constructor&&"function"==typeof e.constructor.isBuffer&&e.constructor.isBuffer(e)}},function(e,t,r){"use strict";var n=r(0),o=r(6),a=r(36),s=r(37),i=r(11);function c(e){this.defaults=e,this.interceptors={request:new a,response:new a}}c.prototype.request=function(e){"string"==typeof e?(e=arguments[1]||{}).url=arguments[0]:e=e||{},(e=i(this.defaults,e)).method=e.method?e.method.toLowerCase():"get";var t=[s,void 0],r=Promise.resolve(e);for(this.interceptors.request.forEach(function(e){t.unshift(e.fulfilled,e.rejected)}),this.interceptors.response.forEach(function(e){t.push(e.fulfilled,e.rejected)});t.length;)r=r.then(t.shift(),t.shift());return r},c.prototype.getUri=function(e){return e=i(this.defaults,e),o(e.url,e.params,e.paramsSerializer).replace(/^\?/,"")},n.forEach(["delete","get","head","options"],function(e){c.prototype[e]=function(t,r){return this.request(n.merge(r||{},{method:e,url:t}))}}),n.forEach(["post","put","patch"],function(e){c.prototype[e]=function(t,r,o){return this.request(n.merge(o||{},{method:e,url:t,data:r}))}}),e.exports=c},function(e,t,r){"use strict";var n=r(0);function o(){this.handlers=[]}o.prototype.use=function(e,t){return this.handlers.push({fulfilled:e,rejected:t}),this.handlers.length-1},o.prototype.eject=function(e){this.handlers[e]&&(this.handlers[e]=null)},o.prototype.forEach=function(e){n.forEach(this.handlers,function(t){null!==t&&e(t)})},e.exports=o},function(e,t,r){"use strict";var n=r(0),o=r(38),a=r(7),s=r(8),i=r(46),c=r(47);function l(e){e.cancelToken&&e.cancelToken.throwIfRequested()}e.exports=function(e){return l(e),e.baseURL&&!i(e.url)&&(e.url=c(e.baseURL,e.url)),e.headers=e.headers||{},e.data=o(e.data,e.headers,e.transformRequest),e.headers=n.merge(e.headers.common||{},e.headers[e.method]||{},e.headers||{}),n.forEach(["delete","get","head","post","put","patch","common"],function(t){delete e.headers[t]}),(e.adapter||s.adapter)(e).then(function(t){return l(e),t.data=o(t.data,t.headers,e.transformResponse),t},function(t){return a(t)||(l(e),t&&t.response&&(t.response.data=o(t.response.data,t.response.headers,e.transformResponse))),Promise.reject(t)})}},function(e,t,r){"use strict";var n=r(0);e.exports=function(e,t,r){return n.forEach(r,function(r){e=r(e,t)}),e}},function(e,t){var r,n,o=e.exports={};function a(){throw new Error("setTimeout has not been defined")}function s(){throw new Error("clearTimeout has not been defined")}function i(e){if(r===setTimeout)return setTimeout(e,0);if((r===a||!r)&&setTimeout)return r=setTimeout,setTimeout(e,0);try{return r(e,0)}catch(t){try{return r.call(null,e,0)}catch(t){return r.call(this,e,0)}}}!function(){try{r="function"==typeof setTimeout?setTimeout:a}catch(e){r=a}try{n="function"==typeof clearTimeout?clearTimeout:s}catch(e){n=s}}();var c,l=[],u=!1,d=-1;function p(){u&&c&&(u=!1,c.length?l=c.concat(l):d=-1,l.length&&f())}function f(){if(!u){var e=i(p);u=!0;for(var t=l.length;t;){for(c=l,l=[];++d<t;)c&&c[d].run();d=-1,t=l.length}c=null,u=!1,function(e){if(n===clearTimeout)return clearTimeout(e);if((n===s||!n)&&clearTimeout)return n=clearTimeout,clearTimeout(e);try{n(e)}catch(t){try{return n.call(null,e)}catch(t){return n.call(this,e)}}}(e)}}function m(e,t){this.fun=e,this.array=t}function h(){}o.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var r=1;r<arguments.length;r++)t[r-1]=arguments[r];l.push(new m(e,t)),1!==l.length||u||i(f)},m.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=h,o.addListener=h,o.once=h,o.off=h,o.removeListener=h,o.removeAllListeners=h,o.emit=h,o.prependListener=h,o.prependOnceListener=h,o.listeners=function(e){return[]},o.binding=function(e){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(e){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}},function(e,t,r){"use strict";var n=r(0);e.exports=function(e,t){n.forEach(e,function(r,n){n!==t&&n.toUpperCase()===t.toUpperCase()&&(e[t]=r,delete e[n])})}},function(e,t,r){"use strict";var n=r(10);e.exports=function(e,t,r){var o=r.config.validateStatus;!o||o(r.status)?e(r):t(n("Request failed with status code "+r.status,r.config,null,r.request,r))}},function(e,t,r){"use strict";e.exports=function(e,t,r,n,o){return e.config=t,r&&(e.code=r),e.request=n,e.response=o,e.isAxiosError=!0,e.toJSON=function(){return{message:this.message,name:this.name,description:this.description,number:this.number,fileName:this.fileName,lineNumber:this.lineNumber,columnNumber:this.columnNumber,stack:this.stack,config:this.config,code:this.code}},e}},function(e,t,r){"use strict";var n=r(0),o=["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"];e.exports=function(e){var t,r,a,s={};return e?(n.forEach(e.split("\n"),function(e){if(a=e.indexOf(":"),t=n.trim(e.substr(0,a)).toLowerCase(),r=n.trim(e.substr(a+1)),t){if(s[t]&&o.indexOf(t)>=0)return;s[t]="set-cookie"===t?(s[t]?s[t]:[]).concat([r]):s[t]?s[t]+", "+r:r}}),s):s}},function(e,t,r){"use strict";var n=r(0);e.exports=n.isStandardBrowserEnv()?function(){var e,t=/(msie|trident)/i.test(navigator.userAgent),r=document.createElement("a");function o(e){var n=e;return t&&(r.setAttribute("href",n),n=r.href),r.setAttribute("href",n),{href:r.href,protocol:r.protocol?r.protocol.replace(/:$/,""):"",host:r.host,search:r.search?r.search.replace(/^\?/,""):"",hash:r.hash?r.hash.replace(/^#/,""):"",hostname:r.hostname,port:r.port,pathname:"/"===r.pathname.charAt(0)?r.pathname:"/"+r.pathname}}return e=o(window.location.href),function(t){var r=n.isString(t)?o(t):t;return r.protocol===e.protocol&&r.host===e.host}}():function(){return!0}},function(e,t,r){"use strict";var n=r(0);e.exports=n.isStandardBrowserEnv()?{write:function(e,t,r,o,a,s){var i=[];i.push(e+"="+encodeURIComponent(t)),n.isNumber(r)&&i.push("expires="+new Date(r).toGMTString()),n.isString(o)&&i.push("path="+o),n.isString(a)&&i.push("domain="+a),!0===s&&i.push("secure"),document.cookie=i.join("; ")},read:function(e){var t=document.cookie.match(new RegExp("(^|;\\s*)("+e+")=([^;]*)"));return t?decodeURIComponent(t[3]):null},remove:function(e){this.write(e,"",Date.now()-864e5)}}:{write:function(){},read:function(){return null},remove:function(){}}},function(e,t,r){"use strict";e.exports=function(e){return/^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(e)}},function(e,t,r){"use strict";e.exports=function(e,t){return t?e.replace(/\/+$/,"")+"/"+t.replace(/^\/+/,""):e}},function(e,t,r){"use strict";var n=r(12);function o(e){if("function"!=typeof e)throw new TypeError("executor must be a function.");var t;this.promise=new Promise(function(e){t=e});var r=this;e(function(e){r.reason||(r.reason=new n(e),t(r.reason))})}o.prototype.throwIfRequested=function(){if(this.reason)throw this.reason},o.source=function(){var e;return{token:new o(function(t){e=t}),cancel:e}},e.exports=o},function(e,t,r){"use strict";e.exports=function(e){return function(t){return e.apply(null,t)}}},function(e,t,r){var n=r(51),o=r(52);e.exports=function(e,t,r){var a=t&&r||0;"string"==typeof e&&(t="binary"===e?new Array(16):null,e=null);var s=(e=e||{}).random||(e.rng||n)();if(s[6]=15&s[6]|64,s[8]=63&s[8]|128,t)for(var i=0;i<16;++i)t[a+i]=s[i];return t||o(s)}},function(e,t){var r="undefined"!=typeof crypto&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&&"function"==typeof window.msCrypto.getRandomValues&&msCrypto.getRandomValues.bind(msCrypto);if(r){var n=new Uint8Array(16);e.exports=function(){return r(n),n}}else{var o=new Array(16);e.exports=function(){for(var e,t=0;t<16;t++)0==(3&t)&&(e=4294967296*Math.random()),o[t]=e>>>((3&t)<<3)&255;return o}}},function(e,t){for(var r=[],n=0;n<256;++n)r[n]=(n+256).toString(16).substr(1);e.exports=function(e,t){var n=t||0,o=r;return[o[e[n++]],o[e[n++]],o[e[n++]],o[e[n++]],"-",o[e[n++]],o[e[n++]],"-",o[e[n++]],o[e[n++]],"-",o[e[n++]],o[e[n++]],"-",o[e[n++]],o[e[n++]],o[e[n++]],o[e[n++]],o[e[n++]],o[e[n++]]].join("")}},function(e,t){e.exports=' <div> <section class=cartographer-field v-if=hasKey> <cartographer-control-panel :busy=busy :center=center :data.sync=data :dirty-center.sync=dirtyCenter :dirty-zoom.sync=dirtyZoom :selected-marker=selectedMarker :selected-marker-index=selectedMarkerIndex :zoom-level=zoomLevel @add-marker=addMarker @marker-attribute-changed=setMarkerAttribute @remove-marker=removeMarker @request-geocoder=requestGeocodedLocation @set-center=setCenter></cartographer-control-panel> <div class=cartographer-field__map v-el:map-container></div> <cartographer-advanced-box :data.sync=data :name=name></cartographer-advanced-box> </section> <small v-else class="help-block my-1"> <p> Please enter your Google Maps API key in the <a href=/admin/addons/cartographer/settings>addon settings</a>. </p> </small> </div> '},function(e,t,r){var n,o,a={};n=r(55),o=r(56),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=r(1),o=r.n(n),a=r(2),s=function(){return function(e,t){if(Array.isArray(e))return e;if(Symbol.iterator in Object(e))return function(e,t){var r=[],n=!0,o=!1,a=void 0;try{for(var s,i=e[Symbol.iterator]();!(n=(s=i.next()).done)&&(r.push(s.value),!t||r.length!==t);n=!0);}catch(e){o=!0,a=e}finally{try{!n&&i.return&&i.return()}finally{if(o)throw a}}return r}(e,t);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e};t.default={props:["data","config","name"],mixins:[a.a],created:function(){this.hasKey=!!this.data.access_token},data:function(){return{fullscreenControl:new mapboxgl.FullscreenControl,navigationControl:new mapboxgl.NavigationControl,scaleControl:new mapboxgl.ScaleControl}},watch:{"data.map_styles":function(e){this.setMapStyles(e)},"data.map_controls":function(e){this.setMapControls(e)}},methods:{addMarker:function(){var e=this,t=!(arguments.length>0&&void 0!==arguments[0])||arguments[0],r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;t&&(r=this.generateNewMarker("mapbox")),t&&this.data.markers.push(r);var n=r,o=n.id,a=n.position,s=n.color,i=a.lat,c=a.lng,l=new mapboxgl.Marker({color:s,draggable:!0});l.id=o,l.setLngLat([c,i]).addTo(this.map),["drag","dragend"].forEach(function(t){l.on(t,function(){e.handleMarkerDragged(o)})}),this.markerObjects.push(l)},addCenterMarker:function(){var e=this;this.centerMarker=new mapboxgl.Marker({draggable:!0,color:"#FFEE00"});var t=this.data.center,r=t.lat,n=t.lng;this.centerMarker.setLngLat([n,r]).addTo(this.map),["drag","dragend"].forEach(function(t){e.centerMarker.on(t,function(){e.dirtyCenter=!1,e.handleMarkerDragged("center",!0)})})},handleMarkerDragged:function(e){if(arguments.length>1&&void 0!==arguments[1]&&arguments[1]){var t=this.centerMarker.getLngLat(),r=t.lat,n=t.lng;this.data=i({},this.data,{center:{lat:r,lng:n}})}else{var o=this.getMarkerById(e).getLngLat(),a=o.lat,s=o.lng;this.updateMarker(e,{position:{lat:a,lng:s}})}},initMap:function(){var e=this;this.center=this.data.center,mapboxgl.accessToken=this.data.access_token;var t=this.data.center,r=t.lng,n=t.lat;this.map=new mapboxgl.Map({container:this.$els.mapContainer,style:this.data.map_styles,center:[r,n],zoom:this.data.zoom_level}),this.data.map_controls.forEach(function(t){e[t]&&e.map.addControl(e[t])}),this.map.on("zoomend",function(t){e.dirtyZoom=!0,e.zoomLevel=Math.round(100*e.map.getZoom())/100}),this.map.on("dragend",function(){e.dirtyCenter=!0;var t=e.map.getCenter(),r=t.lat,n=t.lng;e.center={lat:r,lng:n}}),mapboxgl.Marker.prototype.id=""},removeMarkerObjectFromMap:function(e){e.remove()},requestGeocodedLocation:function(e){var t=this;this.busy=!0;var r="https://api.mapbox.com/geocoding/v5/mapbox.places/"+encodeURI(e)+".json?limit=1&&access_token="+this.data.access_token;o.a.get(r).then(function(e){var r=e.data.features[0],n=s(r.center,2),o=n[0],a=n[1];t.center={lng:o,lat:a},t.dirtyCenter=!0,setTimeout(function(){t.map.flyTo({center:[o,a],zoom:13})},200)}).catch(function(e){return console.error(e)}).finally(function(){t.busy=!1})},setCenter:function(){var e=this.center,t=e.lat,r=e.lng;this.centerMarker.setLngLat([r,t])},setMapControls:function(e){},setMapStyles:function(e){this.map.setStyle(e,{diff:!1})},setMode:function(){this.data.mode="mapbox"},updateMarkerColor:function(e,t){var r=this.getMarkerIndex(e);this.data.markers[r].color=t},updateMarkerPosition:function(e,t){this.getMarkerById(e).setLngLat(t)}}}},function(e,t){e.exports=' <div> <section class=cartographer-field v-if=hasKey> <cartographer-control-panel :busy=busy :center=center :data.sync=data :dirty-center.sync=dirtyCenter :dirty-zoom.sync=dirtyZoom :zoom-level=zoomLevel @add-marker=addMarker @request-geocoder=requestGeocodedLocation @set-center=setCenter></cartographer-control-panel> <div class=cartographer-field__map v-el:map-container></div> <cartographer-advanced-box :data.sync=data :name=name></cartographer-advanced-box> <cartographer-mapbox-markers v-if=data.markers.length :data.sync=data :get-marker-index=getMarkerIndex :marker-objects=markerObjects @marker-color-changed=updateMarkerColor @marker-position-changed=updateMarkerPosition @remove-marker=removeMarker></cartographer-mapbox-markers> </section> <small v-else class="help-block my-1"> <p> Please enter your Mapbox access token in the <a href=/admin/addons/cartographer/settings>addon settings</a>. </p> </small> </div> '},function(e,t,r){var n,o,a={};n=r(58),o=r(59),e.exports=n||{},e.exports.__esModule&&(e.exports=e.exports.default);var s="function"==typeof e.exports?e.exports.options||(e.exports.options={}):e.exports;o&&(s.template=o),s.computed||(s.computed={}),Object.keys(a).forEach(function(e){var t=a[e];s.computed[e]=function(){return t}})},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=r(1),o=(r.n(n),r(2));t.default={props:["data","config","name"],mixins:[Fieldtype,o.a],data:function(){return{mapsComponent:"google"}},created:function(){var e=void 0;switch(this.config.mode){case"mapbox":e="mapbox";break;case"google":default:e="google_maps"}this.mapsComponent="cartographer-"+e+"-fieldtype"}}},function(e,t){e.exports=" <div> <component v-bind:is=mapsComponent :data.sync=data :name=name :config=config></component> </div> "}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(5);
+var isBuffer = __webpack_require__(38);
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Function equal to merge with the difference being that no reference
+ * to original objects is kept.
+ *
+ * @see merge
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function deepMerge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = deepMerge(result[key], val);
+    } else if (typeof val === 'object') {
+      result[key] = deepMerge({}, val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  deepMerge: deepMerge,
+  extend: extend,
+  trim: trim
+};
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(37);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid_v4__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid_v4___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uuid_v4__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  attached: function attached() {
+    if (!this.hasKey) return;
+    this.setMode();
+    this.initMap();
+    this.addCenterMarker();
+    this.populateMarkers(this.data.markers);
+  },
+  data: function data() {
+    return {
+      busy: false,
+      center: {},
+      centerMarker: {},
+      dirtyCenter: false,
+      dirtyZoom: false,
+      hasKey: false,
+      map: null,
+      markerObjects: [],
+      selectedMarker: null,
+      selectedMarkerIndex: 0,
+      zoomLevel: 4
+    };
+  },
+
+
+  methods: {
+    generateNewMarker: function generateNewMarker(mode) {
+      var markerData = {
+        id: __WEBPACK_IMPORTED_MODULE_0_uuid_v4___default()(),
+        position: this.center
+      };
+
+      if (mode === 'google') {
+        markerData.icon = null;
+        markerData.label = null;
+      }
+
+      if (mode === 'mapbox') {
+        markerData.color = null;
+      }
+
+      return markerData;
+    },
+    getMarkerById: function getMarkerById(markerId) {
+      return this.markerObjects.filter(function (markerObject) {
+        return markerObject.id === markerId;
+      })[0];
+    },
+    getMarkerIndex: function getMarkerIndex() {
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (!id) return -1;
+      return this.data.markers.findIndex(function (marker) {
+        return marker.id === id;
+      });
+    },
+    getReplicatorPreviewText: function getReplicatorPreviewText() {
+      var _data$center = this.data.center,
+          lat = _data$center.lat,
+          lng = _data$center.lng;
+
+      return 'Center: Lat: ' + lat + ', Lng: ' + lng;
+    },
+    populateMarkers: function populateMarkers(markers) {
+      var _this = this;
+
+      markers.forEach(function (marker) {
+        return _this.addMarker(false, marker);
+      });
+    },
+    removeMarker: function removeMarker(markerId) {
+      this.selectedMarker = null;
+      this.updateMarker(markerId, null, true);
+      var markerObject = this.getMarkerById(markerId);
+      this.removeMarkerObjectFromMap(markerObject);
+    },
+    updateMarker: function updateMarker(markerId, data) {
+      var remove = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+      var markerIndex = this.getMarkerIndex(markerId);
+      var markers = this.data.markers;
+
+      markers[markerIndex] = _extends({}, markers[markerIndex], data);
+
+      if (remove) markers.splice(markerIndex, 1);
+
+      this.data = _extends({}, this.data, {
+        markers: markers
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStylesClient;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listToStyles__ = __webpack_require__(18);
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+function addStylesClient (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = Object(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = Object(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%40/gi, '@').
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(44);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  // Only Node.JS has a process variable that is of [[Class]] process
+  if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(9);
+  } else if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(9);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var settle = __webpack_require__(45);
+var buildURL = __webpack_require__(6);
+var parseHeaders = __webpack_require__(47);
+var isURLSameOrigin = __webpack_require__(48);
+var createError = __webpack_require__(10);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(49);
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(46);
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  utils.forEach(['url', 'method', 'params', 'data'], function valueFromConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    }
+  });
+
+  utils.forEach(['headers', 'auth', 'proxy'], function mergeDeepProperties(prop) {
+    if (utils.isObject(config2[prop])) {
+      config[prop] = utils.deepMerge(config1[prop], config2[prop]);
+    } else if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (utils.isObject(config1[prop])) {
+      config[prop] = utils.deepMerge(config1[prop]);
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+
+  utils.forEach([
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'maxContentLength',
+    'validateStatus', 'maxRedirects', 'httpAgent', 'httpsAgent', 'cancelToken',
+    'socketPath'
+  ], function defaultToConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+
+  return config;
+};
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(14);
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+Vue.component('cartographer-advanced-box', __webpack_require__(15));
+Vue.component('cartographer-control-panel', __webpack_require__(24));
+Vue.component('cartographer-marker-editor', __webpack_require__(27));
+Vue.component('cartographer-mapbox-markers', __webpack_require__(30));
+Vue.component("cartographer-google_maps-fieldtype", __webpack_require__(35));
+Vue.component("cartographer-mapbox-fieldtype", __webpack_require__(58));
+Vue.component("cartographer-fieldtype", __webpack_require__(61));
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__webpack_require__(16)
+__vue_script__ = __webpack_require__(19)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/components/advanced-box.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(23)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-1cd1e152/advanced-box.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(17);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("3a0e02a6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./advanced-box.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./advanced-box.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.inline-checkboxes .list-unstyled {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.inline-checkboxes .list-unstyled li {\n  margin-right: 1rem;\n}\n\n.inline-checkboxes .list-unstyled li label {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = listToStyles;
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_google_controls_checkboxes__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_mapbox_controls_checkboxes__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_mapbox_styles_radio__ = __webpack_require__(22);
+// <template>
+//   <div>
+//     <div class="btn-group my-1 mr-1">
+//       <a href="#" class="btn btn-default" @click.prevent="toggleOpen">
+//         Advanced
+//         <i class="icon icon-plus icon-right"></i>
+//       </a>
+//     </div>
+//     <div v-if="isOpen" class="card cartographer-field__advanced-panel">
+//       <div v-if="data.mode == 'mapbox'">
+//         <div class="mb-1">
+//           <label class="block">Custom styles</label>
+//           <small class="help-block">
+//             Choose from the predefined styles below or copy the link to your custom style set, you can create your own styles using the
+//             <a
+//               href="https://studio.mapbox.com/styles"
+//               target="_blank"
+//               rel="noopener"
+//             >styles studio</a>.
+//           </small>
+//           <div class="field-inner my-2">
+//             <radio-fieldtype
+//               :data.sync="data['map_styles']"
+//               :config="mapboxStylesRadioConfig"
+//               name="map_styles"
+//             ></radio-fieldtype>
+//           </div>
+//           <input type="text" class="w-full" v-model="data.map_styles">
+//         </div>
+//         <div class="mt-2 inline-checkboxes">
+//           <label class="block">Map controls</label>
+//           <small class="help-block">Set which UI controls show on this map</small>
+//           <checkboxes-fieldtype
+//             :data.sync="data['map_controls']"
+//             :config="mapboxControlsCheckboxConfig"
+//             name="map_controls"
+//           ></checkboxes-fieldtype>
+//         </div>
+//       </div>
+//       <div v-if="data.mode == 'google'">
+//         <div class="mb-1">
+//           <label class="block">Custom styles</label>
+//           <small class="help-block">
+//             These can be generated using
+//             <a
+//               href="https://snazzymaps.com/"
+//               target="_blank"
+//               rel="noopener"
+//             >SnazzyMaps</a>.
+//           </small>
+//           <textarea
+//             v-model="data.map_styles"
+//             placeholder="Paste custom styles here."
+//             class="w-full"
+//             rows="10"
+//           ></textarea>
+//         </div>
+//         <div class="mt-1 inline-checkboxes">
+//           <label class="block">Map controls</label>
+//           <small class="help-block">Set which UI controls show on this map</small>
+//           <checkboxes-fieldtype
+//             :data.sync="data['map_controls']"
+//             :config="googleControlsCheckboxConfig"
+//             :name="controlsFieldname"
+//           ></checkboxes-fieldtype>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </template>
+// <script>
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["data", "name"],
+
+  data: function data() {
+    return {
+      isOpen: false,
+      googleControlsCheckboxConfig: __WEBPACK_IMPORTED_MODULE_0__config_google_controls_checkboxes__["a" /* default */],
+      mapboxControlsCheckboxConfig: __WEBPACK_IMPORTED_MODULE_1__config_mapbox_controls_checkboxes__["a" /* default */],
+      mapboxStylesRadioConfig: __WEBPACK_IMPORTED_MODULE_2__config_mapbox_styles_radio__["a" /* default */]
+    };
+  },
+
+
+  computed: {
+    controlsFieldname: function controlsFieldname() {
+      return this.name + "_map_controls";
+    }
+  },
+
+  methods: {
+    toggleOpen: function toggleOpen() {
+      this.isOpen = !this.isOpen;
+    }
+  }
+});
+// </script>
+// <style>
+// .inline-checkboxes .list-unstyled {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+// .inline-checkboxes .list-unstyled li {
+//   margin-right: 1rem;
+// }
+//
+// .inline-checkboxes .list-unstyled li label {
+//   user-select: none;
+// }
+// </style>
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  name: "map_controls",
+  options: [{
+    value: "fullscreenControl",
+    text: "Fullscreen"
+  }, {
+    value: "mapTypeControl",
+    text: "Map Type"
+  }, {
+    value: "scaleControl",
+    text: "Scale"
+  }, {
+    value: "streetViewControl",
+    text: "Street View"
+  }, {
+    value: "zoomControl",
+    text: "Zoom"
+  }]
+});
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  name: "map_controls",
+  options: [{
+    value: "fullscreenControl",
+    text: "Fullscreen"
+  }, {
+    value: "navigationControl",
+    text: "Navigation"
+  }, {
+    value: "scaleControl",
+    text: "Scale"
+  }]
+});
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  name: "map_styles",
+  inline: true,
+  options: [{
+    value: "mapbox://styles/mapbox/streets-v11",
+    text: "Streets"
+  }, {
+    value: "mapbox://styles/mapbox/light-v10",
+    text: "Light"
+  }, {
+    value: "mapbox://styles/mapbox/dark-v10",
+    text: "Dark"
+  }, {
+    value: "mapbox://styles/mapbox/outdoors-v11",
+    text: "Outdoors"
+  }, {
+    value: "mapbox://styles/mapbox/satellite-v9",
+    text: "Satellite"
+  }]
+});
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div>\n  <div class=\"btn-group my-1 mr-1\">\n    <a href=\"#\" class=\"btn btn-default\" @click.prevent=\"toggleOpen\">\n      Advanced\n      <i class=\"icon icon-plus icon-right\"></i>\n    </a>\n  </div>\n  <div v-if=\"isOpen\" class=\"card cartographer-field__advanced-panel\">\n    <div v-if=\"data.mode == 'mapbox'\">\n      <div class=\"mb-1\">\n        <label class=\"block\">Custom styles</label>\n        <small class=\"help-block\">\n          Choose from the predefined styles below or copy the link to your custom style set, you can create your own styles using the\n          <a\n            href=\"https://studio.mapbox.com/styles\"\n            target=\"_blank\"\n            rel=\"noopener\"\n          >styles studio</a>.\n        </small>\n        <div class=\"field-inner my-2\">\n          <radio-fieldtype\n            :data.sync=\"data['map_styles']\"\n            :config=\"mapboxStylesRadioConfig\"\n            name=\"map_styles\"\n          ></radio-fieldtype>\n        </div>\n        <input type=\"text\" class=\"w-full\" v-model=\"data.map_styles\">\n      </div>\n      <div class=\"mt-2 inline-checkboxes\">\n        <label class=\"block\">Map controls</label>\n        <small class=\"help-block\">Set which UI controls show on this map</small>\n        <checkboxes-fieldtype\n          :data.sync=\"data['map_controls']\"\n          :config=\"mapboxControlsCheckboxConfig\"\n          name=\"map_controls\"\n        ></checkboxes-fieldtype>\n      </div>\n    </div>\n    <div v-if=\"data.mode == 'google'\">\n      <div class=\"mb-1\">\n        <label class=\"block\">Custom styles</label>\n        <small class=\"help-block\">\n          These can be generated using\n          <a\n            href=\"https://snazzymaps.com/\"\n            target=\"_blank\"\n            rel=\"noopener\"\n          >SnazzyMaps</a>.\n        </small>\n        <textarea\n          v-model=\"data.map_styles\"\n          placeholder=\"Paste custom styles here.\"\n          class=\"w-full\"\n          rows=\"10\"\n        ></textarea>\n      </div>\n      <div class=\"mt-1 inline-checkboxes\">\n        <label class=\"block\">Map controls</label>\n        <small class=\"help-block\">Set which UI controls show on this map</small>\n        <checkboxes-fieldtype\n          :data.sync=\"data['map_controls']\"\n          :config=\"googleControlsCheckboxConfig\"\n          :name=\"controlsFieldname\"\n        ></checkboxes-fieldtype>\n      </div>\n    </div>\n  </div>\n</div>\n";
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__vue_script__ = __webpack_require__(25)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/components/control-panel.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(26)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-f5159f5c/control-panel.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+// <template>
+//   <div>
+//     <div class="cartographer-field__controls flex justify-between items-center">
+//       <div class="cartograher-field__marker-controls">
+//         <div v-if="dirtyCenter || dirtyZoom" class="btn-group my-1 mr-1">
+//           <a
+//             v-if="dirtyCenter"
+//             href="#"
+//             class="btn btn-primary"
+//             @click.prevent="setCenter"
+//           >Set center</a>
+//           <a
+//             v-if="dirtyZoom"
+//             href="#"
+//             class="btn btn-primary"
+//             @click.prevent="setZoomLevel"
+//           >Set zoom level ({{ zoomLevel }})</a>
+//         </div>
+//         <div v-if="!selectedMarker" class="btn-group my-1 mr-2">
+//           <a href="#" class="btn btn-default" @click.prevent="addMarker">
+//             Marker
+//             <i class="icon icon-plus icon-right"></i>
+//           </a>
+//         </div>
+//         <div v-if="selectedMarker" class="btn-group my-1 mr-2">
+//           <a href="#" class="btn btn-white" @click.prevent="toggleMarkerEditorOpen">
+//             <i class="icon icon-pencil icon-left"></i>
+//             Edit
+//           </a>
+//           <a href="#" class="btn btn-danger" @click.prevent="removeMarker">Remove</a>
+//         </div>
+//       </div>
+//       <div v-if="data.search_enabled" class="controls flex items-center lg:w-auto">
+//         <div v-if="busy" class="loading loading-basic">
+//           <span class="icon icon-circular-graph animation-spin"></span>
+//         </div>
+//         <input
+//           type="text"
+//           class="filter-control search w-full"
+//           placeholder="Search for a location"
+//           :disabled="busy"
+//           @keyup.13="requestGeocoder"
+//         >
+//       </div>
+//     </div>
+//     <cartographer-marker-editor
+//       :data.sync="data"
+//       :is-open="selectedMarker && markerEditorOpen"
+//       :marker-index="selectedMarkerIndex"
+//       @marker-attribute-changed="markerAttributeChanged"
+//       v-if="selectedMarkerIndex >= 0"
+//     ></cartographer-marker-editor>
+//   </div>
+// </template>
+// <script>
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["busy", "center", "data", "dirtyCenter", "dirtyZoom", "selectedMarker", "selectedMarkerIndex", "zoomLevel"],
+
+  data: function data() {
+    return {
+      markerEditorOpen: false
+    };
+  },
+
+
+  methods: {
+    addMarker: function addMarker() {
+      this.$emit("add-marker");
+    },
+    markerAttributeChanged: function markerAttributeChanged(attr, val) {
+      this.$emit("marker-attribute-changed", attr, val);
+    },
+    removeMarker: function removeMarker() {
+      this.$emit("remove-marker", this.selectedMarker);
+    },
+    requestGeocoder: function requestGeocoder(e) {
+      this.$emit("request-geocoder", e.target.value);
+    },
+    setCenter: function setCenter() {
+      this.$emit("set-center");
+      this.dirtyCenter = false;
+      this.data.center = this.center;
+    },
+    setZoomLevel: function setZoomLevel() {
+      this.$emit("set-zoom-level");
+      this.dirtyZoom = false;
+      this.data.zoom_level = this.zoomLevel;
+    },
+    toggleMarkerEditorOpen: function toggleMarkerEditorOpen() {
+      if (this.selectedMarkerIndex < 0) {
+        return this.markerEditorOpen = false;
+      }
+      this.markerEditorOpen = !this.markerEditorOpen;
+    }
+  }
+});
+// </script>
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div>\n  <div class=\"cartographer-field__controls flex justify-between items-center\">\n    <div class=\"cartograher-field__marker-controls\">\n      <div v-if=\"dirtyCenter || dirtyZoom\" class=\"btn-group my-1 mr-1\">\n        <a\n          v-if=\"dirtyCenter\"\n          href=\"#\"\n          class=\"btn btn-primary\"\n          @click.prevent=\"setCenter\"\n        >Set center</a>\n        <a\n          v-if=\"dirtyZoom\"\n          href=\"#\"\n          class=\"btn btn-primary\"\n          @click.prevent=\"setZoomLevel\"\n        >Set zoom level ({{ zoomLevel }})</a>\n      </div>\n      <div v-if=\"!selectedMarker\" class=\"btn-group my-1 mr-2\">\n        <a href=\"#\" class=\"btn btn-default\" @click.prevent=\"addMarker\">\n          Marker\n          <i class=\"icon icon-plus icon-right\"></i>\n        </a>\n      </div>\n      <div v-if=\"selectedMarker\" class=\"btn-group my-1 mr-2\">\n        <a href=\"#\" class=\"btn btn-white\" @click.prevent=\"toggleMarkerEditorOpen\">\n          <i class=\"icon icon-pencil icon-left\"></i>\n          Edit\n        </a>\n        <a href=\"#\" class=\"btn btn-danger\" @click.prevent=\"removeMarker\">Remove</a>\n      </div>\n    </div>\n    <div v-if=\"data.search_enabled\" class=\"controls flex items-center lg:w-auto\">\n      <div v-if=\"busy\" class=\"loading loading-basic\">\n        <span class=\"icon icon-circular-graph animation-spin\"></span>\n      </div>\n      <input\n        type=\"text\"\n        class=\"filter-control search w-full\"\n        placeholder=\"Search for a location\"\n        :disabled=\"busy\"\n        @keyup.13=\"requestGeocoder\"\n      >\n    </div>\n  </div>\n  <cartographer-marker-editor\n    :data.sync=\"data\"\n    :is-open=\"selectedMarker && markerEditorOpen\"\n    :marker-index=\"selectedMarkerIndex\"\n    @marker-attribute-changed=\"markerAttributeChanged\"\n    v-if=\"selectedMarkerIndex >= 0\"\n  ></cartographer-marker-editor>\n</div>\n";
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__vue_script__ = __webpack_require__(28)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/components/marker-editor.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(29)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-2d94431e/marker-editor.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+// <template>
+//   <div v-if="isOpen" class="my-2 card cartographer-field__marker-edit-box">
+//     <label class="block uppercase">Edit marker</label>
+//     <div v-if="data.mode == 'google'" class="w-full my-1">
+//       <div class="field-inner">
+//         <label class="block">Icon</label>
+//         <div class="help-block">Paste the url of the marker icon image</div>
+//         <input
+//           @change="setAttribute($event, 'icon')"
+//           :value="data.markers[markerIndex].icon"
+//           type="text"
+//           class="form-control type-text"
+//         >
+//       </div>
+//     </div>
+//     <div v-if="data.mode == 'google'" class="w-1/4 my-1">
+//       <div class="field-inner">
+//         <label class="block">Label</label>
+//         <div class="help-block">Set a marker label</div>
+//         <input
+//           @input="setAttribute($event, 'label')"
+//           :value="data.markers[markerIndex].label"
+//           type="text"
+//           class="form-control type-text"
+//         >
+//       </div>
+//     </div>
+//     <div v-if="data.mode == 'mapbox'" class="w-1/4 my-1">
+//       <div class="field-inner">
+//         <label class="block">Color</label>
+//         <div class="help-block">Set the marker color. e.g. `#ffee00`.</div>
+//         <input
+//           @input="setAttribute($event, 'label')"
+//           :value="data.markers[markerIndex].color"
+//           type="text"
+//           class="form-control type-text"
+//         >
+//       </div>
+//     </div>
+//   </div>
+// </template>
+//
+// <script>
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["data", "isOpen", "markerIndex"],
+
+  methods: {
+    setAttribute: function setAttribute(e, attr) {
+      var val = e.target.value;
+      this.data.markers[this.markerIndex][attr] = val;
+      this.$emit("marker-attribute-changed", attr, val);
+    }
+  }
+});
+// </script>
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div v-if=\"isOpen\" class=\"my-2 card cartographer-field__marker-edit-box\">\n  <label class=\"block uppercase\">Edit marker</label>\n  <div v-if=\"data.mode == 'google'\" class=\"w-full my-1\">\n    <div class=\"field-inner\">\n      <label class=\"block\">Icon</label>\n      <div class=\"help-block\">Paste the url of the marker icon image</div>\n      <input\n        @change=\"setAttribute($event, 'icon')\"\n        :value=\"data.markers[markerIndex].icon\"\n        type=\"text\"\n        class=\"form-control type-text\"\n      >\n    </div>\n  </div>\n  <div v-if=\"data.mode == 'google'\" class=\"w-1/4 my-1\">\n    <div class=\"field-inner\">\n      <label class=\"block\">Label</label>\n      <div class=\"help-block\">Set a marker label</div>\n      <input\n        @input=\"setAttribute($event, 'label')\"\n        :value=\"data.markers[markerIndex].label\"\n        type=\"text\"\n        class=\"form-control type-text\"\n      >\n    </div>\n  </div>\n  <div v-if=\"data.mode == 'mapbox'\" class=\"w-1/4 my-1\">\n    <div class=\"field-inner\">\n      <label class=\"block\">Color</label>\n      <div class=\"help-block\">Set the marker color. e.g. `#ffee00`.</div>\n      <input\n        @input=\"setAttribute($event, 'label')\"\n        :value=\"data.markers[markerIndex].color\"\n        type=\"text\"\n        class=\"form-control type-text\"\n      >\n    </div>\n  </div>\n</div>\n";
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__webpack_require__(31)
+__vue_script__ = __webpack_require__(33)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/components/mapbox-markers-table.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(34)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-ad547c64/mapbox-markers-table.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(32);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("4f84cc9e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./mapbox-markers-table.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./mapbox-markers-table.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.cartographer__mapbox-markers {\n  max-width: 750px;\n}\n\n.cartographer__mapbox-marker-table {\n  margin: 10px 0;\n}\n\n.cartographer__mapbox-marker-table tbody tr:hover {\n  background-color: #f1f5f9;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+// <template>
+//   <div class="card my-3 cartographer__mapbox-markers">
+//     <label class="block">Markers</label>
+//     <table class="cartographer__mapbox-marker-table">
+//       <thead>
+//         <th>Marker ID</th>
+//         <th>Position</th>
+//         <th>Color</th>
+//         <th>Actions</th>
+//       </thead>
+//       <tbody>
+//         <tr v-for="marker in data.markers">
+//           <td>{{ marker.id.split('-')[0] }}</td>
+//           <td>
+//             <div class="flex items-center my-1">
+//               <label class="block mr-2">Lat:</label>
+//               <input
+//                 @change="updateMarkerPosition($event, marker.id, 'lat')"
+//                 :value="data.markers[getMarkerIndex(marker.id)].position.lat"
+//                 type="number"
+//                 class="flex-grow"
+//               >
+//             </div>
+//             <div class="flex items-center my-1">
+//               <label class="block mr-2">Lng:</label>
+//               <input
+//                 @change="updateMarkerPosition($event, marker.id, 'lng')"
+//                 :value="data.markers[getMarkerIndex(marker.id)].position.lng"
+//                 type="number"
+//                 class="flex-grow"
+//               >
+//             </div>
+//           </td>
+//           <td>
+//             <input
+//               @change="setMarkerColor($event, marker.id)"
+//               :value="data.markers[getMarkerIndex(marker.id)].color"
+//               placeholder="#3FB1CE"
+//               type="text"
+//             >
+//           </td>
+//           <td>
+//             <a href="#" @click.prevent="removeMarker(marker.id)">Remove</a>
+//           </td>
+//         </tr>
+//       </tbody>
+//     </table>
+//   </div>
+// </template>
+// <script>
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["data", "getMarkerIndex"],
+
+  methods: {
+    removeMarker: function removeMarker(markerId) {
+      this.$emit("remove-marker", markerId);
+    },
+    updateMarkerPosition: function updateMarkerPosition(e, markerId, coord) {
+      var unChanged = coord === "lat" ? "lng" : "lat";
+      var unChangedCoord = this.data.markers[this.getMarkerIndex(markerId)].position[unChanged];
+      var position = [e.target.value];
+      position.splice(unChanged === "lat" ? 1 : 0, 0, unChangedCoord);
+      this.$emit("marker-position-changed", markerId, position);
+    },
+    setMarkerColor: function setMarkerColor(e, markerId) {
+      var color = e.target.value;
+      this.$emit("marker-color-changed", markerId, color);
+    }
+  }
+});
+// </script>
+// <style>
+// .cartographer__mapbox-markers {
+//   max-width: 750px;
+// }
+//
+// .cartographer__mapbox-marker-table {
+//   margin: 10px 0;
+// }
+//
+// .cartographer__mapbox-marker-table tbody tr:hover {
+//   background-color: #f1f5f9;
+// }
+// </style>
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div class=\"card my-3 cartographer__mapbox-markers\">\n  <label class=\"block\">Markers</label>\n  <table class=\"cartographer__mapbox-marker-table\">\n    <thead>\n      <th>Marker ID</th>\n      <th>Position</th>\n      <th>Color</th>\n      <th>Actions</th>\n    </thead>\n    <tbody>\n      <tr v-for=\"marker in data.markers\">\n        <td>{{ marker.id.split('-')[0] }}</td>\n        <td>\n          <div class=\"flex items-center my-1\">\n            <label class=\"block mr-2\">Lat:</label>\n            <input\n              @change=\"updateMarkerPosition($event, marker.id, 'lat')\"\n              :value=\"data.markers[getMarkerIndex(marker.id)].position.lat\"\n              type=\"number\"\n              class=\"flex-grow\"\n            >\n          </div>\n          <div class=\"flex items-center my-1\">\n            <label class=\"block mr-2\">Lng:</label>\n            <input\n              @change=\"updateMarkerPosition($event, marker.id, 'lng')\"\n              :value=\"data.markers[getMarkerIndex(marker.id)].position.lng\"\n              type=\"number\"\n              class=\"flex-grow\"\n            >\n          </div>\n        </td>\n        <td>\n          <input\n            @change=\"setMarkerColor($event, marker.id)\"\n            :value=\"data.markers[getMarkerIndex(marker.id)].color\"\n            placeholder=\"#3FB1CE\"\n            type=\"text\"\n          >\n        </td>\n        <td>\n          <a href=\"#\" @click.prevent=\"removeMarker(marker.id)\">Remove</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n";
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__vue_script__ = __webpack_require__(36)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/Fieldtypes/GoogleMapsFieldtype.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(57)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-3843408b/GoogleMapsFieldtype.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mixins_Cartographer__ = __webpack_require__(2);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// <template>
+//   <div>
+//     <section class="cartographer-field" v-if="hasKey">
+//       <cartographer-control-panel
+//         :busy="busy"
+//         :center="center"
+//         :data.sync="data"
+//         :dirty-center.sync="dirtyCenter"
+//         :dirty-zoom.sync="dirtyZoom"
+//         :selected-marker="selectedMarker"
+//         :selected-marker-index="selectedMarkerIndex"
+//         :zoom-level="zoomLevel"
+//         @add-marker="addMarker"
+//         @marker-attribute-changed="setMarkerAttribute"
+//         @remove-marker="removeMarker"
+//         @request-geocoder="requestGeocodedLocation"
+//         @set-center="setCenter"
+//       ></cartographer-control-panel>
+//       <div class="cartographer-field__map" v-el:map-container></div>
+//       <cartographer-advanced-box :data.sync="data" :name="name"></cartographer-advanced-box>
+//     </section>
+//     <small v-else class="help-block my-1">
+//       <p>
+//         Please enter your Google Maps API key in the
+//         <a
+//           href="/admin/addons/cartographer/settings"
+//         >addon settings</a>.
+//       </p>
+//     </small>
+//   </div>
+// </template>
+//
+// <script>
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["data", "config", "name"],
+
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__Mixins_Cartographer__["a" /* default */]],
+
+  created: function created() {
+    this.hasKey = !!this.data.api_key;
+  },
+
+
+  watch: {
+    "data.map_styles": function dataMap_styles(val) {
+      this.setMapStyles(val);
+    },
+
+    "data.map_controls": function dataMap_controls(val) {
+      this.setMapControls(val);
+    }
+  },
+
+  methods: {
+    addMarker: function addMarker() {
+      var _this = this;
+
+      var isNew = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var markerData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      if (isNew) {
+        markerData = this.generateNewMarker();
+      }
+
+      if (isNew) this.data.markers.push(markerData);
+
+      var _markerData = markerData,
+          id = _markerData.id,
+          label = _markerData.label,
+          position = _markerData.position,
+          icon = _markerData.icon;
+
+
+      var newMarker = new google.maps.Marker({
+        animation: google.maps.Animation.DROP,
+        draggable: true,
+        map: this.map,
+        position: position,
+        icon: icon,
+        id: id,
+        label: label
+      });
+
+      ["drag", "dragend"].forEach(function (eventType) {
+        newMarker.addListener(eventType, function (event) {
+          return _this.handleMarkerDragged(event, id);
+        });
+      });
+
+      newMarker.addListener("click", function () {
+        return _this.toggleSelectedMarker(id);
+      });
+
+      this.markerObjects.push(newMarker);
+    },
+    addCenterMarker: function addCenterMarker() {
+      var _this2 = this;
+
+      this.centerMarker = new google.maps.Marker({
+        draggable: true,
+        map: this.map,
+        position: this.map.getCenter(),
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          strokeColor: "red"
+        }
+      });
+
+      ["drag", "dragend"].forEach(function (eventType) {
+        _this2.centerMarker.addListener(eventType, function (event) {
+          _this2.dirtyCenter = false;
+          _this2.handleMarkerDragged(event, "center", true);
+        });
+      });
+    },
+    handleMarkerDragged: function handleMarkerDragged(event, markerId) {
+      var isCenter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var _ref = [event.latLng.lat(), event.latLng.lng()],
+          lat = _ref[0],
+          lng = _ref[1];
+
+      if (isCenter) {
+        this.data = _extends({}, this.data, {
+          center: { lat: lat, lng: lng }
+        });
+      } else {
+        this.updateMarker(markerId, { position: { lat: lat, lng: lng } });
+      }
+    },
+    initMap: function initMap() {
+      var _this3 = this;
+
+      var mapOptions = {
+        center: this.data.center,
+        disableDefaultUI: true,
+        mapTypeId: this.data.map_type_id,
+        zoom: this.data.zoom_level
+      };
+
+      this.data.map_controls.forEach(function (control) {
+        return mapOptions[control] = true;
+      });
+
+      this.map = new google.maps.Map(this.$els.mapContainer, mapOptions);
+
+      if (this.data.map_styles) {
+        try {
+          var styles = JSON.parse(this.data.map_styles);
+          this.setMapStyles(styles);
+        } catch (e) {
+          console.error("Failed to set initial styles: " + e);
+        }
+      }
+
+      this.center = this.map.getCenter().toJSON();
+
+      this.map.addListener("maptypeid_changed", function () {
+        _this3.data.map_type_id = _this3.map.getMapTypeId();
+      });
+
+      this.map.addListener("dragend", function () {
+        _this3.dirtyCenter = true;
+        _this3.center = _this3.map.getCenter().toJSON();
+      });
+      this.map.addListener("zoom_changed", function () {
+        _this3.zoomLevel = _this3.map.getZoom();
+        _this3.dirtyZoom = true;
+      });
+    },
+    removeMarkerObjectFromMap: function removeMarkerObjectFromMap(markerObject) {
+      markerObject.setMap(null);
+    },
+    requestGeocodedLocation: function requestGeocodedLocation(query) {
+      var _this4 = this;
+
+      this.busy = true;
+
+      var encodedQuery = encodeURI(query);
+      var endpointURI = "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodedQuery + "&key=" + this.data.api_key;
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(endpointURI).then(function (response) {
+        if (response.data.status !== "OK") {
+          return swal({
+            type: "error",
+            title: "Location Search Failed",
+            text: response.data.error_message || response.data.status,
+            confirmButtonText: "OK",
+            showCancelButton: false
+          });
+        }
+        var result = response.data.results[0];
+        var _result$geometry$loca = result.geometry.location,
+            lat = _result$geometry$loca.lat,
+            lng = _result$geometry$loca.lng;
+
+        _this4.center = { lat: lat, lng: lng };
+        _this4.map.panTo(_this4.center);
+        _this4.map.setZoom(14);
+        _this4.dirtyCenter = true;
+      }).catch(function (e) {
+        return console.error(e);
+      }).finally(function () {
+        _this4.busy = false;
+      });
+    },
+    setCenter: function setCenter() {
+      this.centerMarker.setPosition(this.map.getCenter());
+    },
+    setMarkerAttribute: function setMarkerAttribute(attr, val) {
+      var marker = this.getMarkerById(this.selectedMarker);
+      switch (attr) {
+        case "icon":
+          marker.setIcon(val);
+          break;
+        case "label":
+          marker.setLabel(val ? String(val) : "");
+          break;
+        default:
+          break;
+      }
+    },
+    setMapControls: function setMapControls(data) {
+      var controls = {
+        fullscreenControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        zoomControl: false
+      };
+      data.forEach(function (control) {
+        return controls[control] = true;
+      });
+      this.map.setOptions(controls);
+    },
+    setMapStyles: function setMapStyles(stylesRaw) {
+      if (!stylesRaw) return this.map.setOptions({ styles: [] });
+      try {
+        var styles = JSON.parse(stylesRaw);
+        this.map.setOptions({ styles: styles });
+      } catch (e) {
+        console.error("Failed to parse map styles: " + e);
+      }
+    },
+    setMode: function setMode() {
+      this.data.mode = "google";
+    },
+    toggleSelectedMarker: function toggleSelectedMarker(markerId) {
+      var _this5 = this;
+
+      this.selectedMarker = this.selectedMarker === markerId ? null : markerId;
+      this.selectedMarkerIndex = this.getMarkerIndex(this.selectedMarker);
+      this.markerObjects.forEach(function (markerObject) {
+        if (markerObject.id === _this5.selectedMarker) {
+          markerObject.setAnimation(google.maps.Animation.BOUNCE);
+        } else {
+          markerObject.setAnimation(null);
+        }
+      });
+    }
+  }
+});
+// </script>
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var bind = __webpack_require__(5);
+var Axios = __webpack_require__(39);
+var mergeConfig = __webpack_require__(11);
+var defaults = __webpack_require__(8);
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(12);
+axios.CancelToken = __webpack_require__(52);
+axios.isCancel = __webpack_require__(7);
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(53);
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports.default = axios;
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var buildURL = __webpack_require__(6);
+var InterceptorManager = __webpack_require__(40);
+var dispatchRequest = __webpack_require__(41);
+var mergeConfig = __webpack_require__(11);
+
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
+  }
+
+  config = mergeConfig(this.defaults, config);
+  config.method = config.method ? config.method.toLowerCase() : 'get';
+
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var transformData = __webpack_require__(42);
+var isCancel = __webpack_require__(7);
+var defaults = __webpack_require__(8);
+var isAbsoluteURL = __webpack_require__(50);
+var combineURLs = __webpack_require__(51);
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers || {}
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData(
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData(
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(10);
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+  return error;
+};
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+
+  return parsed;
+};
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
+
+      /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+      function resolveURL(url) {
+        var href = url;
+
+        if (msie) {
+        // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
+        urlParsingNode.setAttribute('href', href);
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
+      }
+
+      originURL = resolveURL(window.location.href);
+
+      /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+      };
+    })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
+);
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
+
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
+        }
+      };
+    })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
+);
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(12);
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(55);
+var bytesToUuid = __webpack_require__(56);
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options === 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+
+// getRandomValues needs to be invoked in a context where "this" is a Crypto
+// implementation. Also, find the complete implementation of crypto on IE11.
+var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
+                      (typeof(msCrypto) != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto));
+
+if (getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+
+  module.exports = function whatwgRNG() {
+    getRandomValues(rnds8);
+    return rnds8;
+  };
+} else {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var rnds = new Array(16);
+
+  module.exports = function mathRNG() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports) {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
+  return ([bth[buf[i++]], bth[buf[i++]], 
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]],
+	bth[buf[i++]], bth[buf[i++]],
+	bth[buf[i++]], bth[buf[i++]]]).join('');
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div>\n  <section class=\"cartographer-field\" v-if=\"hasKey\">\n    <cartographer-control-panel\n      :busy=\"busy\"\n      :center=\"center\"\n      :data.sync=\"data\"\n      :dirty-center.sync=\"dirtyCenter\"\n      :dirty-zoom.sync=\"dirtyZoom\"\n      :selected-marker=\"selectedMarker\"\n      :selected-marker-index=\"selectedMarkerIndex\"\n      :zoom-level=\"zoomLevel\"\n      @add-marker=\"addMarker\"\n      @marker-attribute-changed=\"setMarkerAttribute\"\n      @remove-marker=\"removeMarker\"\n      @request-geocoder=\"requestGeocodedLocation\"\n      @set-center=\"setCenter\"\n    ></cartographer-control-panel>\n    <div class=\"cartographer-field__map\" v-el:map-container></div>\n    <cartographer-advanced-box :data.sync=\"data\" :name=\"name\"></cartographer-advanced-box>\n  </section>\n  <small v-else class=\"help-block my-1\">\n    <p>\n      Please enter your Google Maps API key in the\n      <a\n        href=\"/admin/addons/cartographer/settings\"\n      >addon settings</a>.\n    </p>\n  </small>\n</div>\n";
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__vue_script__ = __webpack_require__(59)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/Fieldtypes/MapboxFieldtype.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(60)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-131e8fec/MapboxFieldtype.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 59 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mixins_Cartographer__ = __webpack_require__(2);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// <template>
+//   <div>
+//     <section class="cartographer-field" v-if="hasKey">
+//       <cartographer-control-panel
+//         :busy="busy"
+//         :center="center"
+//         :data.sync="data"
+//         :dirty-center.sync="dirtyCenter"
+//         :dirty-zoom.sync="dirtyZoom"
+//         :zoom-level="zoomLevel"
+//         @add-marker="addMarker"
+//         @request-geocoder="requestGeocodedLocation"
+//         @set-center="setCenter"
+//       ></cartographer-control-panel>
+//       <div class="cartographer-field__map" v-el:map-container></div>
+//       <cartographer-advanced-box :data.sync="data" :name="name"></cartographer-advanced-box>
+//       <cartographer-mapbox-markers
+//         v-if="data.markers.length"
+//         :data.sync="data"
+//         :get-marker-index="getMarkerIndex"
+//         :marker-objects="markerObjects"
+//         @marker-color-changed="updateMarkerColor"
+//         @marker-position-changed="updateMarkerPosition"
+//         @remove-marker="removeMarker"
+//       ></cartographer-mapbox-markers>
+//     </section>
+//     <small v-else class="help-block my-1">
+//       <p>
+//         Please enter your Mapbox access token in the
+//         <a
+//           href="/admin/addons/cartographer/settings"
+//         >addon settings</a>.
+//       </p>
+//     </small>
+//   </div>
+// </template>
+//
+// <script>
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["data", "config", "name"],
+
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__Mixins_Cartographer__["a" /* default */]],
+
+  created: function created() {
+    this.hasKey = !!this.data.access_token;
+  },
+  data: function data() {
+    return {
+      fullscreenControl: new mapboxgl.FullscreenControl(),
+      navigationControl: new mapboxgl.NavigationControl(),
+      scaleControl: new mapboxgl.ScaleControl()
+    };
+  },
+
+
+  watch: {
+    "data.map_styles": function dataMap_styles(val) {
+      this.setMapStyles(val);
+    },
+
+    "data.map_controls": function dataMap_controls(val) {
+      this.setMapControls(val);
+    }
+  },
+
+  methods: {
+    addMarker: function addMarker() {
+      var _this = this;
+
+      var isNew = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var markerData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      if (isNew) {
+        markerData = this.generateNewMarker("mapbox");
+      }
+
+      if (isNew) this.data.markers.push(markerData);
+
+      var _markerData = markerData,
+          id = _markerData.id,
+          position = _markerData.position,
+          color = _markerData.color;
+      var lat = position.lat,
+          lng = position.lng;
+
+      var newMarker = new mapboxgl.Marker({
+        color: color,
+        draggable: true
+      });
+      newMarker.id = id;
+      newMarker.setLngLat([lng, lat]).addTo(this.map);
+
+      ["drag", "dragend"].forEach(function (eventType) {
+        newMarker.on(eventType, function () {
+          _this.handleMarkerDragged(id);
+        });
+      });
+
+      this.markerObjects.push(newMarker);
+    },
+    addCenterMarker: function addCenterMarker() {
+      var _this2 = this;
+
+      this.centerMarker = new mapboxgl.Marker({
+        draggable: true,
+        color: "#FFEE00"
+      });
+
+      var _data$center = this.data.center,
+          lat = _data$center.lat,
+          lng = _data$center.lng;
+
+
+      this.centerMarker.setLngLat([lng, lat]).addTo(this.map);
+
+      ["drag", "dragend"].forEach(function (eventType) {
+        _this2.centerMarker.on(eventType, function () {
+          _this2.dirtyCenter = false;
+          _this2.handleMarkerDragged("center", true);
+        });
+      });
+    },
+    handleMarkerDragged: function handleMarkerDragged(markerId) {
+      var isCenter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      if (isCenter) {
+        var _centerMarker$getLngL = this.centerMarker.getLngLat(),
+            lat = _centerMarker$getLngL.lat,
+            lng = _centerMarker$getLngL.lng;
+
+        this.data = _extends({}, this.data, {
+          center: { lat: lat, lng: lng }
+        });
+      } else {
+        var _getMarkerById$getLng = this.getMarkerById(markerId).getLngLat(),
+            _lat = _getMarkerById$getLng.lat,
+            _lng = _getMarkerById$getLng.lng;
+
+        this.updateMarker(markerId, { position: { lat: _lat, lng: _lng } });
+      }
+    },
+    initMap: function initMap() {
+      var _this3 = this;
+
+      this.center = this.data.center;
+
+      mapboxgl.accessToken = this.data.access_token;
+      var _data$center2 = this.data.center,
+          lng = _data$center2.lng,
+          lat = _data$center2.lat;
+
+      this.map = new mapboxgl.Map({
+        container: this.$els.mapContainer,
+        style: this.data.map_styles,
+        center: [lng, lat],
+        zoom: this.data.zoom_level
+      });
+
+      this.data.map_controls.forEach(function (control) {
+        if (_this3[control]) {
+          _this3.map.addControl(_this3[control]);
+        }
+      });
+
+      this.map.on("zoomend", function (e) {
+        _this3.dirtyZoom = true;
+        _this3.zoomLevel = Math.round(_this3.map.getZoom() * 100) / 100;
+      });
+
+      this.map.on("dragend", function () {
+        _this3.dirtyCenter = true;
+
+        var _map$getCenter = _this3.map.getCenter(),
+            lat = _map$getCenter.lat,
+            lng = _map$getCenter.lng;
+
+        _this3.center = { lat: lat, lng: lng };
+      });
+
+      mapboxgl.Marker.prototype.id = "";
+    },
+    removeMarkerObjectFromMap: function removeMarkerObjectFromMap(markerObject) {
+      markerObject.remove();
+    },
+    requestGeocodedLocation: function requestGeocodedLocation(query) {
+      var _this4 = this;
+
+      this.busy = true;
+
+      var encodedQuery = encodeURI(query);
+      var endpointURI = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodedQuery + ".json?limit=1&&access_token=" + this.data.access_token;
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(endpointURI).then(function (response) {
+        var result = response.data.features[0];
+
+        var _result$center = _slicedToArray(result.center, 2),
+            lng = _result$center[0],
+            lat = _result$center[1];
+
+        _this4.center = { lng: lng, lat: lat };
+        _this4.dirtyCenter = true;
+
+        setTimeout(function () {
+          _this4.map.flyTo({
+            center: [lng, lat],
+            zoom: 13
+          });
+        }, 200);
+      }).catch(function (e) {
+        return console.error(e);
+      }).finally(function () {
+        _this4.busy = false;
+      });
+    },
+    setCenter: function setCenter() {
+      var _center = this.center,
+          lat = _center.lat,
+          lng = _center.lng;
+
+      this.centerMarker.setLngLat([lng, lat]);
+    },
+    setMapControls: function setMapControls(data) {
+      // Currently no way to remove existing controls from the map - calling removeControl() errors
+      // if an instance isn't on the map nad there is no way to 'get' the current controls
+      // https://github.com/mapbox/mapbox-gl-js/issues/7682
+      return;
+    },
+    setMapStyles: function setMapStyles(styles) {
+      this.map.setStyle(styles, { diff: false });
+    },
+    setMode: function setMode() {
+      this.data.mode = "mapbox";
+    },
+    updateMarkerColor: function updateMarkerColor(markerId, color) {
+      var markerIndex = this.getMarkerIndex(markerId);
+      this.data.markers[markerIndex].color = color;
+    },
+    updateMarkerPosition: function updateMarkerPosition(markerId, lngLat) {
+      var marker = this.getMarkerById(markerId);
+      marker.setLngLat(lngLat);
+    }
+  }
+});
+// </script>
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div>\n  <section class=\"cartographer-field\" v-if=\"hasKey\">\n    <cartographer-control-panel\n      :busy=\"busy\"\n      :center=\"center\"\n      :data.sync=\"data\"\n      :dirty-center.sync=\"dirtyCenter\"\n      :dirty-zoom.sync=\"dirtyZoom\"\n      :zoom-level=\"zoomLevel\"\n      @add-marker=\"addMarker\"\n      @request-geocoder=\"requestGeocodedLocation\"\n      @set-center=\"setCenter\"\n    ></cartographer-control-panel>\n    <div class=\"cartographer-field__map\" v-el:map-container></div>\n    <cartographer-advanced-box :data.sync=\"data\" :name=\"name\"></cartographer-advanced-box>\n    <cartographer-mapbox-markers\n      v-if=\"data.markers.length\"\n      :data.sync=\"data\"\n      :get-marker-index=\"getMarkerIndex\"\n      :marker-objects=\"markerObjects\"\n      @marker-color-changed=\"updateMarkerColor\"\n      @marker-position-changed=\"updateMarkerPosition\"\n      @remove-marker=\"removeMarker\"\n    ></cartographer-mapbox-markers>\n  </section>\n  <small v-else class=\"help-block my-1\">\n    <p>\n      Please enter your Mapbox access token in the\n      <a\n        href=\"/admin/addons/cartographer/settings\"\n      >addon settings</a>.\n    </p>\n  </small>\n</div>\n";
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_script__, __vue_template__
+var __vue_styles__ = {}
+__vue_script__ = __webpack_require__(62)
+if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+  console.warn("[vue-loader] resources/assets/js/src/Fieldtypes/CartographerFieldtype.vue: named exports in *.vue files are ignored.")}
+__vue_template__ = __webpack_require__(63)
+module.exports = __vue_script__ || {}
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+if (__vue_template__) {
+__vue_options__.template = __vue_template__
+}
+if (!__vue_options__.computed) __vue_options__.computed = {}
+Object.keys(__vue_styles__).forEach(function (key) {
+var module = __vue_styles__[key]
+__vue_options__.computed[key] = function () { return module }
+})
+if (false) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  var id = "_v-403ebf22/CartographerFieldtype.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, __vue_template__)
+  }
+})()}
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mixins_Cartographer__ = __webpack_require__(2);
+// <template>
+//   <div>
+//     <component v-bind:is="mapsComponent" :data.sync="data" :name="name" :config="config"></component>
+//   </div>
+// </template>
+//
+// <script>
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["data", "config", "name"],
+
+  mixins: [Fieldtype, __WEBPACK_IMPORTED_MODULE_1__Mixins_Cartographer__["a" /* default */]],
+
+  data: function data() {
+    return {
+      mapsComponent: "google"
+    };
+  },
+  created: function created() {
+    var cartographerComponent = void 0;
+    switch (this.config.mode) {
+      case "mapbox":
+        cartographerComponent = "mapbox";
+        break;
+      case "google":
+      default:
+        cartographerComponent = "google_maps";
+        break;
+    }
+    this.mapsComponent = "cartographer-" + cartographerComponent + "-fieldtype";
+  }
+});
+// </script>
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div>\n  <component v-bind:is=\"mapsComponent\" :data.sync=\"data\" :name=\"name\" :config=\"config\"></component>\n</div>\n";
+
+/***/ })
+/******/ ]);

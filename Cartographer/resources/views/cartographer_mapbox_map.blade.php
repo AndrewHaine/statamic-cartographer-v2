@@ -1,13 +1,18 @@
 <div id="{{ $id }}" class="{{ $classes }}" style="width:{{ $width }};height:{{ $height }};font-size:0" data-cartographer-mapbox-map>
 	<?php
 		$data = [
-			"center" => $center,
 			"controls" => $controls,
 			"id" => $id,
 			"styles" => $custom_styles,
 			"markers" => $markers,
 			"zoom" => $zoom
 		];
+
+		if($autocenter) {
+			$data['autocenter'] = true;
+		} else {
+			$data['center'] = $center;
+		}
 
 		echo json_encode($data);
 	?>

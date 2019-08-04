@@ -12,12 +12,17 @@ function initMapbox() {
     function renderCartographerMapboxMap(data) {
         var accessToken = document.querySelector('meta[type="cartographer_mapbox_access_token"]');
         mapboxgl.accessToken = accessToken.getAttribute('content');
-        var map = new mapboxgl.Map({
+        var mapData = {
             container: data.id,
             style: data.styles,
-            center: [data.center.lng, data.center.lat],
             zoom: data.zoom
-        });
+        };
+
+        if(!data.autocenter) {
+            mapData['center'] = [data.center.lng, data.center.lat];
+        }
+
+        var map = new mapboxgl.Map(mapData);
 
         var controlsMap = {
             fullscreenControl: new mapboxgl.FullscreenControl(),
@@ -31,12 +36,19 @@ function initMapbox() {
             }
         });
 
+        var markerBounds = new mapboxgl.LngLatBounds();
+
         data.markers.forEach(marker => {
             var markerObject = new mapboxgl.Marker({
                 color: marker.color
             });
             markerObject.setLngLat([marker.position.lng, marker.position.lat]).addTo(map);
+            markerBounds.extend([marker.position.lng, marker.position.lat]);
         });
+
+        if(data.autocenter) {
+            map.fitBounds(markerBounds, { padding: 20 });
+        }
     }
 
     var cssLink = document.createElement('link');
