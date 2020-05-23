@@ -12,28 +12,20 @@ class CartographerFieldtype extends Fieldtype
 
 	public function blank()
 	{
-
-		$data = [
+		$data = $this->getBoilerplateData([
 			'markers' => [],
 			'zoom_level' => 4,
-		];
+		]);
+
+		$data['api_key'] = $this->getConfig('google_maps_api_key', '');
+		$data['access_token'] = $this->getConfig('mapbox_access_token', '');
 
 		return $data;
 	}
 
 	public function preProcess($data)
 	{
-		$mode = $this->getFieldConfig('mode', 'google');
-
-		$config_center = $this->getFieldConfig('default_center');
-		$default_center = empty($config_center) ? $this->default_center : ['lat' => (float)$config_center['lat'], 'lng' => (float)$config_center['lng']];
-		$data['center'] = array_get($data, 'center', $default_center);
-
-		if ($mode === 'mapbox') {
-			$data = $this->processMapboxFieldDefaults($data);
-		} elseif ($mode === 'google') {
-			$data = $this->processGoogleMapsFieldDefaults($data);
-		}
+		$data = $this->getBoilerplateData($data);
 		return $data;
 	}
 
@@ -56,6 +48,22 @@ class CartographerFieldtype extends Fieldtype
 		$data['map_controls'] = array_get($data, 'map_controls', []);
 		$data['map_styles'] = array_get($data, 'map_styles', 'mapbox://styles/mapbox/streets-v11');
 		$data['search_enabled'] = true; // Always on!
+		return $data;
+	}
+
+	public function getBoilerplateData($data = []) {
+		$mode = $this->getFieldConfig('mode', 'google');
+
+		$config_center = $this->getFieldConfig('default_center');
+		$default_center = empty($config_center) ? $this->default_center : ['lat' => (float)$config_center['lat'], 'lng' => (float)$config_center['lng']];
+		$data['center'] = array_get($data, 'center', $default_center);
+
+		if ($mode === 'mapbox') {
+			$data = $this->processMapboxFieldDefaults($data);
+		} elseif ($mode === 'google') {
+			$data = $this->processGoogleMapsFieldDefaults($data);
+		}
+
 		return $data;
 	}
 }

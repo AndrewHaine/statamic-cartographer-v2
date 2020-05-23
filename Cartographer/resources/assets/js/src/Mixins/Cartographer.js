@@ -56,6 +56,7 @@ export default {
     },
 
     getReplicatorPreviewText() {
+      if(!this.data || !this.data.center) return null;
       const { lat, lng } = this.data.center;
       return `Center: Lat: ${lat}, Lng: ${lng}`;
     },

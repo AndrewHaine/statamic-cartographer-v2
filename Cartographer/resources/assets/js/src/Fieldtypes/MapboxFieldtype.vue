@@ -131,7 +131,7 @@ export default {
       const { lng, lat } = this.data.center;
       this.map = new mapboxgl.Map({
         container: this.$els.mapContainer,
-        style: this.data.map_styles,
+        style: this.data.map_styles || 'mapbox://styles/mapbox/streets-v11',
         center: [lng, lat],
         zoom: this.data.zoom_level
       });
