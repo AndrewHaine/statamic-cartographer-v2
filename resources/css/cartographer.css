@@ -1,0 +1,28 @@
+.cartographer-field__map {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    background-color: #f5f9fc;
+    border: #f1f5f9 2px solid;
+}
+
+.cartographer-field__map::after {
+    position: relative;
+    display: inline-block;
+    width: 1px;
+    height: 0;
+    padding-bottom: calc(100% * (9 / 16));
+    content: "";
+}
+
+.cartographer-field__advanced-panel,
+.cartographer-field__controls,
+.cartographer-field__marker-edit-box {
+    width: 100%;
+    max-width: 750px;
+}
+
+
+.cartograher-field__marker-controls .btn-group .btn:not(:last-child) {
+    border-radius: 0 0 3px 3px;
+}

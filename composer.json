@@ -1,0 +1,36 @@
+{
+    "name": "andrewhaine/statamic-cartographer",
+    "description": "Add maps or geo data to your content with ease using a drag and drop interface.",
+    "keywords": [
+        "statamic",
+        "maps",
+        "mapbox",
+        "fieldtype",
+        "google maps"
+    ],
+    "type": "statamic-addon",
+    "autoload": {
+        "psr-4": {
+            "AndrewHaine\\StatamicCartographer\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrew Haine",
+            "email": "andrew@andrewhaine.co.uk",
+            "homepage": "https://andrewhaine.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "extra": {
+        "statamic": {
+            "name": "Cartographer",
+            "description": "Statamic Cartographer addon"
+        },
+        "laravel": {
+            "providers": [
+                "AndrewHaine\\StatamicCartographer\\ServiceProvider"
+            ]
+        }
+    }
+}
