@@ -39,7 +39,7 @@ class CartographerFieldtype extends Fieldtype
         return [
             'mode' => collect($this->config())->get('mode', 'google'),
             'default_center' => collect($this->config())->get('default_center', $this->default_center),
-            'google_api_key' => config('cartographer.google_maps_api_key')
+            'google_api_key' => config('statamic.cartographer.google_maps_api_key')
         ];
     }
 

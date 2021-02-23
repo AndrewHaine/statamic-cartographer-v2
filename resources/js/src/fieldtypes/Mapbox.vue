@@ -26,7 +26,7 @@
     </section>
     <small v-else class="help-block my-1">
       <p>
-        Please enter your Mapbox access token in the cartographer config.</a>.
+        Please enter your Mapbox access token in the cartographer config.
       </p>
     </small>
   </div>

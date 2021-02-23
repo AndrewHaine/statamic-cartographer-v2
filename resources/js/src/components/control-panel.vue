@@ -98,7 +98,6 @@ export default {
     setCenter() {
       this.$emit("set-center");
       this.dirtyCenter = false;
-      this.data.center = this.center;
     },
 
     setZoomLevel() {

@@ -23,10 +23,15 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/cartographer.php', 'cartographer');
+        // Publish config and merge
+        $this->mergeConfigFrom(__DIR__ . '/../config/statamic/cartographer.php', 'statamic.cartographer');
+        $this->publishes([
+            __DIR__ . '/../config/statamic/cartographer.php' => config_path('statamic/cartographer.php'),
+        ], 'config');
 
+        // Register the google maps script in the CMS
         if(config('cartographer.google_maps_api_key') !== '') {
-            $this->registerExternalScript("https://maps.googleapis.com/maps/api/js?key=" . config('cartographer.google_maps_api_key'));
+            $this->registerExternalScript("https://maps.googleapis.com/maps/api/js?key=" . config('statamic.cartographer.google_maps_api_key'));
         }
     }
 }

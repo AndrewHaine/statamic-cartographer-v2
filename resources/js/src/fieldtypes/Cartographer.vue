@@ -13,9 +13,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import Cartographer from "../mixins/Cartographer";
-
 import GoogleMapsFieldtype from './GoogleMaps';
 import MapboxFieldtype from './Mapbox';
 
@@ -30,7 +27,7 @@ export default {
   mixins: [Fieldtype],
   data() {
     return {
-      mapsComponent: "google",
+      mapsComponent: "",
       data: {
         mode: 'google',
         center: this.meta.default_center,
@@ -55,8 +52,12 @@ export default {
     this.mapsComponent = `cartographer-${cartographerComponent}-fieldtype`;
   },
   watch: {
-    data(data) {
-        this.update(data);
+    data: {
+        deep: true,
+        handler(data) {
+            console.log(data);
+            this.update(data);
+        }
     }
   }
 };

@@ -1,6 +1,7 @@
 {
     "name": "andrewhaine/statamic-cartographer",
     "description": "Add maps or geo data to your content with ease using a drag and drop interface.",
+    "version": "2.0.0",
     "keywords": [
         "statamic",
         "maps",

@@ -17,7 +17,11 @@
         @set-center="setCenter"
       ></cartographer-control-panel>
       <div class="cartographer-field__map" ref="mapContainer"></div>
-      <cartographer-advanced-box :data.sync="data" :name="name"></cartographer-advanced-box>
+      <cartographer-advanced-box
+        :data.sync="data"
+        :name="name"
+        @map-controls-changed="setMapControls"
+    ></cartographer-advanced-box>
     </section>
     <small v-else class="help-block my-1">
       <p>
@@ -53,10 +57,6 @@ export default {
   watch: {
     "data.map_styles": function(val) {
       this.setMapStyles(val);
-    },
-
-    "data.map_controls": function(val) {
-      this.setMapControls(val);
     }
   },
 
@@ -114,10 +114,7 @@ export default {
     handleMarkerDragged(event, markerId, isCenter = false) {
       const [lat, lng] = [event.latLng.lat(), event.latLng.lng()];
       if (isCenter) {
-        this.data = {
-          ...this.data,
-          center: { lat, lng }
-        };
+        this.data.center = { lat, lng };
       } else {
         this.updateMarker(markerId, { position: { lat, lng } });
       }
@@ -199,6 +196,7 @@ export default {
 
     setCenter() {
       this.centerMarker.setPosition(this.map.getCenter());
+      this.data.center = this.map.getCenter();
     },
 
     setMarkerAttribute(attr, val) {
@@ -215,7 +213,7 @@ export default {
       }
     },
 
-    setMapControls(data) {
+    setMapControls(newValue) {
       let controls = {
         fullscreenControl: false,
         mapTypeControl: false,
@@ -223,8 +221,9 @@ export default {
         streetViewControl: false,
         zoomControl: false
       };
-      data.forEach(control => (controls[control] = true));
+      newValue.forEach(control => (controls[control] = true));
       this.map.setOptions(controls);
+      this.data.map_controls = newValue;
     },
 
     setMapStyles(stylesRaw) {

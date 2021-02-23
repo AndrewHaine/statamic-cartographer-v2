@@ -31,9 +31,10 @@
           <label class="block">Map controls</label>
           <small class="help-block">Set which UI controls show on this map</small>
           <checkboxes-fieldtype
-            :data.sync="data['map_controls']"
+            @input="updateMarkerControls"
+            :value="data.map_controls"
             :config="mapboxControlsCheckboxConfig"
-            name="map_controls"
+            :name="controlsFieldname"
           ></checkboxes-fieldtype>
         </div>
       </div>
@@ -48,21 +49,21 @@
               rel="noopener"
             >SnazzyMaps</a>.
           </small>
-          <textarea
+          <textarea-fieldtype
             v-model="data.map_styles"
             placeholder="Paste custom styles here."
             class="w-full"
             rows="10"
-          ></textarea>
+           />
         </div>
         <div class="mt-1 inline-checkboxes">
           <label class="block">Map controls</label>
           <small class="help-block">Set which UI controls show on this map</small>
           <checkboxes-fieldtype
-            v-bind:value="data['map_controls']"
+            @input="updateMarkerControls"
+            :value="data.map_controls"
             :config="googleControlsCheckboxConfig"
             :name="controlsFieldname"
-            v-on:input="data['map_controls'] = $event"
           ></checkboxes-fieldtype>
         </div>
       </div>
@@ -95,6 +96,10 @@ export default {
   methods: {
     toggleOpen() {
       this.isOpen = !this.isOpen;
+    },
+    updateMarkerControls(value) {
+        this.$emit("map-controls-changed", value);
+        this.data.map_controls = value;
     }
   }
 };
